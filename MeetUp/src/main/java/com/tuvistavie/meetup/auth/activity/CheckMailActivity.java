@@ -2,6 +2,7 @@ package com.tuvistavie.meetup.auth.activity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.Menu;
@@ -51,10 +52,15 @@ public class CheckMailActivity extends RoboActivity {
         return "";
     }
 
+    private void finalizeActivity() {
+        Intent intent = new Intent(this, EnterPinActivity.class);
+        startActivity(intent);
+    }
+
     public void confirm(View v) {
         String emailText = confirmEmailEdit.getText().toString();
         if(emailPattern.matcher(emailText).matches()) {
-
+            finalizeActivity();
         } else {
             emailErrorText.setText(emailErrorString);
         }

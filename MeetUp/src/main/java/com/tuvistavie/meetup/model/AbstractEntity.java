@@ -57,15 +57,7 @@ public abstract class AbstractEntity implements Entity, JSONSerializable {
 
     @Override
     public void fetch() {
-        HttpGet request = new HttpGet(remoteUri);
-        HTTPHelper.addJSONHeaders(request);
-        try {
-            HttpResponse response = httpClient.execute(request);
-            String responseContent = HTTPHelper.getReponseContent(response);
-            setFromJSON(responseContent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        fromJSON(HTTPHelper.getJSON(remoteUri));
     }
 
     @Override
@@ -89,14 +81,6 @@ public abstract class AbstractEntity implements Entity, JSONSerializable {
             e.printStackTrace();
         }
         return false;
-    }
-
-    protected void setFromJSON(String jsonString) {
-        try {
-            fromJSON(new JSONObject(jsonString));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     public String getResourceUri() {
