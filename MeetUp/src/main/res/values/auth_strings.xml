@@ -2,4 +2,6 @@
 <resources>
     <string name="email_confirmation">Confirm email</string>
     <string name="email_error">This does not look like an email</string>
+    <string name="enter_pin">We just sent you an email.\n
+        Please enter the PIN code.</string>
 </resources>

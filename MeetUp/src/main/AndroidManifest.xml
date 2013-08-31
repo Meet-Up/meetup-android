@@ -27,6 +27,10 @@
         <activity
             android:name=".auth.activity.CheckMailActivity"
             android:label="CheckMail" />
+        <activity
+            android:name=".auth.activity.EnterPinActivity"
+            android:label="ConfirmMail" />
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

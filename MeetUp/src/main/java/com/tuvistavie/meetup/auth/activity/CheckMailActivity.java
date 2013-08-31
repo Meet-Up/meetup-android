@@ -3,7 +3,6 @@ package com.tuvistavie.meetup.auth.activity;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.os.Bundle;
-import android.app.Activity;
 import android.util.Patterns;
 import android.view.Menu;
 import android.view.View;
@@ -16,6 +15,7 @@ import com.tuvistavie.meetup.R;
 import java.util.regex.Pattern;
 
 import roboguice.activity.RoboActivity;
+import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 
 /**
@@ -28,10 +28,8 @@ public class CheckMailActivity extends RoboActivity {
     private Pattern emailPattern = Patterns.EMAIL_ADDRESS;
 
     @InjectView(R.id.confirm_email_edit) EditText confirmEmailEdit;
-
-    @InjectView(R.id.confirm_email_button) Button confirmEmailButton;
-
     @InjectView(R.id.email_error_text) TextView emailErrorText;
+    @InjectResource(R.string.email_error) String emailErrorString;
 
 
     @Override
@@ -40,7 +38,6 @@ public class CheckMailActivity extends RoboActivity {
         setContentView(R.layout.activity_check_mail);
 
         confirmEmailEdit.setText(getEmail());
-        confirmEmailButton.setOnClickListener(new ConfirmButtonListener());
     }
 
     private String getEmail() {
@@ -54,18 +51,14 @@ public class CheckMailActivity extends RoboActivity {
         return "";
     }
 
-    private class ConfirmButtonListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            String emailText = confirmEmailEdit.getText().toString();
-            if(emailPattern.matcher(emailText).matches()) {
+    public void confirm(View v) {
+        String emailText = confirmEmailEdit.getText().toString();
+        if(emailPattern.matcher(emailText).matches()) {
 
-            } else {
-                emailErrorText.setText(getResources().getString(R.string.email_error));
-            }
+        } else {
+            emailErrorText.setText(emailErrorString);
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

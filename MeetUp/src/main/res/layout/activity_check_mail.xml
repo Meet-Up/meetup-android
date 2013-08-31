@@ -33,10 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/confirm_btn"
+        android:onClick="confirm"
         android:id="@+id/confirm_email_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/confirm_email_edit"
-        android:layout_marginBottom="77dp" />
+        android:layout_alignTop="@+id/email_error_text"
+        android:layout_alignRight="@+id/confirm_email_edit" />
 
     <TextView
         android:layout_width="wrap_content"
