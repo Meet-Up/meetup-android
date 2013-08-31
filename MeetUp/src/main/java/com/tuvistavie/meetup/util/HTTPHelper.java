@@ -25,12 +25,12 @@ public final class HTTPHelper {
 
     private static HttpClient httpClient = new DefaultHttpClient();
 
-    public static void addJSONHeaders(HttpRequest request) {
+    private static void addJSONHeaders(HttpRequest request) {
         request.addHeader("Content-type", "application/json");
         request.addHeader("Accept", "application/json");
     }
 
-    public static String getReponseContent(HttpResponse response) {
+    private static String getReponseContent(HttpResponse response) {
         try {
             InputStream contentStream = response.getEntity().getContent();
             StringBuffer contentBuffer = new StringBuffer();

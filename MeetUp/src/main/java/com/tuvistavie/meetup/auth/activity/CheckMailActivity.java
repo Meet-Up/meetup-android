@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tuvistavie.meetup.R;
+import com.tuvistavie.meetup.util.HTTPHelper;
+
+import org.json.JSONObject;
 
 import java.util.regex.Pattern;
 
@@ -53,6 +56,7 @@ public class CheckMailActivity extends RoboActivity {
     }
 
     private void finalizeActivity() {
+        JSONObject jsonObject = new JSONObject();
         Intent intent = new Intent(this, EnterPinActivity.class);
         startActivity(intent);
     }
