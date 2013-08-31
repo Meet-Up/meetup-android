@@ -83,7 +83,7 @@ public class User extends AbstractEntity {
     public static String getRegistrationToken(String email) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("email", email);
-        String uri = Routes.GET_AUTH_TOKEN.generateRoute(params);
+        String uri = Routes.GET_AUTH_TOKEN.getRoute();
         Log.d(TAG, "starting to get registration token");
         JSONObject reply = HTTPHelper.postJSONForObject(uri, params);
         try {
@@ -99,7 +99,7 @@ public class User extends AbstractEntity {
         Map<String, String> params = new HashMap<String, String>();
         params.put("token", registrationToken);
         params.put("pin_code", pinCode);
-        String uri = Routes.CONFIRM_USER.generateRoute(params);
+        String uri = Routes.CONFIRM_USER.getRoute();
         Log.d(TAG, "starting to get authentication token");
         JSONObject reply = HTTPHelper.postJSONForObject(uri, params);
         User user = new User();

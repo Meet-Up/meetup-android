@@ -51,4 +51,22 @@ public enum Routes {
         }
         return generateRoute(s);
     }
+
+    public String getRoute() {
+        try {
+            URI uri = new URI(
+                    PROTOCOL,
+                    null,
+                    HOST,
+                    PORT,
+                    route,
+                    null,
+                    null
+            );
+            return uri.toASCIIString();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

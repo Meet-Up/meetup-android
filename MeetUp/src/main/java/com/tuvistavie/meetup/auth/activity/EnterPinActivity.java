@@ -22,6 +22,8 @@ public class EnterPinActivity extends RoboActivity {
 
     private static final String TAG = "com.tuvistavie.meetup.uth.activity.EnterPinActivity";
 
+    public static final int REQUEST_CODE = 11;
+
     @InjectView(R.id.pin_edit) EditText pinEdit;
     @InjectView(R.id.pin_error_view) TextView pinErrorText;
     @InjectResource(R.string.pin_error) String pinErrorString;

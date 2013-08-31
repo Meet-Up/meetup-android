@@ -9,14 +9,14 @@
         android:targetSdkVersion="16" />
 
     <application
+        android:name="com.tuvistavie.meetup.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".App"
-        >
+        android:theme="@style/AppTheme" >
+
         <activity
-            android:name="com.tuvistavie.meetup.MainActivity"
+            android:name="com.tuvistavie.meetup.event.activity.TimelineActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,11 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".auth.activity.CheckMailActivity"
+            android:name="com.tuvistavie.meetup.auth.activity.CheckMailActivity"
             android:label="CheckMail" />
+
         <activity
-            android:name=".auth.activity.EnterPinActivity"
+            android:name="com.tuvistavie.meetup.auth.activity.EnterPinActivity"
             android:label="ConfirmMail" />
 
     </application>

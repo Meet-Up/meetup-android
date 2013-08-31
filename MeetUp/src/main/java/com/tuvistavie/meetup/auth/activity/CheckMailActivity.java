@@ -30,6 +30,8 @@ public class CheckMailActivity extends RoboActivity {
 
     public static final String TOKEN_EXTRA = "CheckMailActivity.TOKEN_EXTRA";
 
+    public static final int REQUEST_CODE = 10;
+
     private Pattern emailPattern = Patterns.EMAIL_ADDRESS;
 
     @InjectView(R.id.confirm_email_edit) EditText confirmEmailEdit;
@@ -67,7 +69,7 @@ public class CheckMailActivity extends RoboActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == R.id.enter_pin_requestcode && resultCode == RESULT_OK) {
+        if(requestCode == EnterPinActivity.REQUEST_CODE && resultCode == RESULT_OK) {
             setResult(RESULT_OK);
             finish();
         }
@@ -90,7 +92,7 @@ public class CheckMailActivity extends RoboActivity {
             Log.d(TAG, "registration token received successfuly: " + result);
             Intent intent = new Intent(CheckMailActivity.this, EnterPinActivity.class);
             intent.putExtra(TOKEN_EXTRA, result);
-            startActivityForResult(intent, R.id.enter_pin_requestcode);
+            startActivityForResult(intent, EnterPinActivity.REQUEST_CODE);
         }
     }
     
