@@ -19,18 +19,28 @@
         android:layout_height="wrap_content"
         android:inputType="numberSigned"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/pin_edit"
         android:layout_below="@+id/textView"
         android:layout_alignRight="@+id/textView"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="27dp" />
+        android:layout_marginTop="27dp"
+        android:maxLength="4" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/confirm_btn"
         android:id="@+id/button"
-        android:layout_below="@+id/editText"
-        android:layout_alignRight="@+id/textView"
-        android:layout_marginTop="47dp" />
+        android:onClick="onConfirmPressed"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/pin_error_view"
+        android:layout_below="@+id/pin_edit"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_marginTop="13dp" />
 </RelativeLayout>

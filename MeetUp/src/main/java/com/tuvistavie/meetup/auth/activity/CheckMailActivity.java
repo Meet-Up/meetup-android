@@ -5,6 +5,7 @@ import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.Menu;
 import android.view.View;
@@ -55,10 +56,10 @@ public class CheckMailActivity extends RoboActivity {
         return "";
     }
 
-    public void confirm(View v) {
+    public void onConfirmPressed(View v) {
         String emailText = confirmEmailEdit.getText().toString();
         if(emailPattern.matcher(emailText).matches()) {
-            new GetTokenFileTask().execute(new User(emailText));
+            new GetTokenFileTask().execute(emailText);
         } else {
             emailErrorText.setText(emailErrorString);
         }
@@ -70,21 +71,19 @@ public class CheckMailActivity extends RoboActivity {
         return true;
     }
 
-    private class GetTokenFileTask extends AsyncTask<User, Void, String> {
-
+    private class GetTokenFileTask extends AsyncTask<String, Void, String> {
         @Override
-        protected String doInBackground(User... users) {
-            User user = users[0];
-            return user.getRegistrationToken();
+        protected String doInBackground(String... emails) {
+            String email = emails[0];
+            return User.getRegistrationToken(email);
         }
-
         @Override
         protected void onPostExecute(String result) {
+            Log.d(TAG, "registration token received successfuly: " + result);
             Intent intent = new Intent(CheckMailActivity.this, EnterPinActivity.class);
             intent.putExtra(TOKEN_EXTRA, result);
             startActivity(intent);
         }
-
     }
     
 }

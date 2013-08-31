@@ -1,7 +1,5 @@
 package com.tuvistavie.meetup.util;
 
-import android.net.Uri;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
@@ -10,7 +8,8 @@ import java.util.Map;
  * Created by daniel on 8/31/13.
  */
 public enum Routes {
-    GET_AUTH_TOKEN("/auth/get_token");
+    GET_AUTH_TOKEN("/auth/get_token"),
+    CONFIRM_USER("/auth/confirm_user");
 
     static final String PROTOCOL = "http";
     static final String HOST = "192.168.100.102";
