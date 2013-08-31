@@ -1,9 +1,9 @@
 package com.tuvistavie.meetup.auth.activity;
 
-import android.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import com.tuvistavie.meetup.R;
 
 public class CheckMailActivity extends Activity {
 
