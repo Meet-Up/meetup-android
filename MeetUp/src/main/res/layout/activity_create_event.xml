@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:inputType="textMultiLine"
-                android:id="@+id/editText"
+                android:id="@+id/event_description_text"
                 android:layout_gravity="center"
                 android:layout_weight="3" />
         </LinearLayout>
@@ -88,7 +88,7 @@
             <DatePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/datePicker"
+                android:id="@+id/event_date_picker"
                 android:spinnersShown="true"
                 android:calendarViewShown="false"
                 android:layout_weight="2" />
@@ -103,9 +103,19 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:gravity="right"
-            android:id="@+id/button" />
+            android:text="@string/adjust_time"
+            android:layout_gravity="right"
+            android:id="@+id/adjust_time_button"
+            android:layout_marginBottom="50dp"
+            android:onClick="onAdjustTimePressed" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/confirm_btn"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/confirm_button"
+            android:onClick="onConfirmPressed" />
 
     </LinearLayout>
 

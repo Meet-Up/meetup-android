@@ -20,6 +20,10 @@ public class Event extends AbstractEntity {
         super();
     }
 
+    public Event(String name, String description, EventDate... dates) {
+
+    }
+
     public Event(JSONObject jsonObject) {
         super(jsonObject);
     }
@@ -53,6 +57,7 @@ public class Event extends AbstractEntity {
             for(EventDate date : datePossibilities) {
                 jsonDates.put(date.toJSON());
             }
+            jsonEvent.put("event_dates_attributes", jsonDates);
             return jsonEvent;
         } catch (JSONException e) {
             e.printStackTrace();

@@ -14,6 +14,14 @@ public class EventDate extends AbstractEntity {
     private Date startDateTime;
     private Date endDateTime;
 
+    public EventDate(Date startDate) {
+        this(startDate, new Date(startDate.getTime() + 3600));
+    }
+
+    public EventDate(Date startDate, Date endDate) {
+        this.startDateTime = startDate;
+        this.endDateTime = endDate;
+    }
 
     public EventDate(JSONObject jsonObject) {
         super(jsonObject);
