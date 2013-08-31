@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="event_name">イベント名</string>
+    <string name="create_event">イベント作成</string>
+    <string name="event_content">内容</string>
+    <string name="event_date">日付</string>
+</resources>
