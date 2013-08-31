@@ -20,23 +20,31 @@
         android:layout_marginTop="49dp" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/confirm_email_edit"
         android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/textView"
-        android:layout_marginTop="41dp"
-        android:layout_alignRight="@+id/textView" />
+        android:layout_marginTop="56dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/confirm_btn"
-        android:id="@+id/button"
+        android:id="@+id/confirm_email_button"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/confirm_email_edit"
         android:layout_marginBottom="77dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/email_error_text"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/confirm_email_edit"
+        android:textColor="#b40000" />
 
 </RelativeLayout>
