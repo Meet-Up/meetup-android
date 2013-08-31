@@ -3,6 +3,7 @@ package com.tuvistavie.meetup.auth.model;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.tuvistavie.meetup.App;
 import com.tuvistavie.meetup.model.AbstractEntity;
@@ -36,6 +37,11 @@ public class User extends AbstractEntity {
         return instance;
     }
 
+    private void saveToPrefs() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(App.getContext());
+        preferences.edit().putString("user", toJSON().toString()).commit();
+    }
+
     private static User loadUserFromPrefs() {
         User user = null;
         try {
@@ -57,7 +63,6 @@ public class User extends AbstractEntity {
         try {
             email = jsonObject.getString("email");
             token = jsonObject.getString("token");
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -93,16 +98,22 @@ public class User extends AbstractEntity {
     public static boolean makeAuthentication(String registrationToken, String pinCode) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("token", registrationToken);
-        params.put("pinCode", pinCode);
+        params.put("pin_code", pinCode);
         String uri = Routes.CONFIRM_USER.generateRoute(params);
         Log.d(TAG, "starting to get authentication token");
         JSONObject reply = HTTPHelper.postJSONForObject(uri, params);
+        User user = new User();
         try {
-            String token = reply.getString("token");
-            return true;
+            user.fromJSON(reply.getJSONObject("user"));
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+
+        if(user.token == null || user.token.isEmpty()) {
             return false;
+        } else {
+            user.saveToPrefs();
+            return true;
         }
     }
 }

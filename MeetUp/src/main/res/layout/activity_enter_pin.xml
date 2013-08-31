@@ -42,5 +42,6 @@
         android:id="@+id/pin_error_view"
         android:layout_below="@+id/pin_edit"
         android:layout_alignLeft="@+id/textView"
-        android:layout_marginTop="13dp" />
+        android:layout_marginTop="13dp"
+        android:textColor="#b40000" />
 </RelativeLayout>
