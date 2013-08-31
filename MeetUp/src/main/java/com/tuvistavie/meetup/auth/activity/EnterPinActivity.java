@@ -48,6 +48,7 @@ public class EnterPinActivity extends RoboActivity {
         protected void onPostExecute(Boolean result) {
             if(result) {
                 Log.d(TAG, "authentication token received successfuly");
+                setResult(RESULT_OK);
                 finish();
             } else {
                 pinErrorText.setText(pinErrorString);

@@ -66,6 +66,14 @@ public class CheckMailActivity extends RoboActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == R.id.enter_pin_requestcode && resultCode == RESULT_OK) {
+            setResult(RESULT_OK);
+            finish();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.check_mail, menu);
         return true;
@@ -82,7 +90,7 @@ public class CheckMailActivity extends RoboActivity {
             Log.d(TAG, "registration token received successfuly: " + result);
             Intent intent = new Intent(CheckMailActivity.this, EnterPinActivity.class);
             intent.putExtra(TOKEN_EXTRA, result);
-            startActivity(intent);
+            startActivityForResult(intent, R.id.enter_pin_requestcode);
         }
     }
     
