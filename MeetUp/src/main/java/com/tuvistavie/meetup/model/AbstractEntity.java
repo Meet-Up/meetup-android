@@ -2,20 +2,14 @@ package com.tuvistavie.meetup.model;
 
 import com.tuvistavie.meetup.util.HTTPHelper;
 
-import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.DefaultedHttpParams;
-import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,13 +22,17 @@ import java.io.UnsupportedEncodingException;
  */
 public abstract class AbstractEntity implements Entity, JSONSerializable {
     private String remoteUri;
-    private int id;
+    protected int id;
 
     protected HttpClient httpClient;
 
     public AbstractEntity(int id) {
         this.id = id;
         this.httpClient = new DefaultHttpClient();
+    }
+
+    public AbstractEntity(JSONObject jsonObject) {
+        fromJSON(jsonObject);
     }
 
     public AbstractEntity() {
@@ -60,6 +58,7 @@ public abstract class AbstractEntity implements Entity, JSONSerializable {
     @Override
     public void fetch() {
         HttpGet request = new HttpGet(remoteUri);
+        HTTPHelper.addJSONHeaders(request);
         try {
             HttpResponse response = httpClient.execute(request);
             String responseContent = HTTPHelper.getReponseContent(response);
@@ -77,6 +76,7 @@ public abstract class AbstractEntity implements Entity, JSONSerializable {
         } else {
             request = new HttpPut(getResourceUri());
         }
+        HTTPHelper.addJSONHeaders(request);
         try {
             request.setEntity(new ByteArrayEntity(toJSON().toString().getBytes("UTF-8")));
         } catch (UnsupportedEncodingException e) {
