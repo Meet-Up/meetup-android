@@ -57,30 +57,16 @@ public abstract class AbstractEntity implements Entity, JSONSerializable {
 
     @Override
     public void fetch() {
-        fromJSON(HTTPHelper.getJSON(remoteUri));
+        fromJSON(HTTPHelper.getJSONObject(remoteUri));
     }
 
     @Override
     public boolean save() {
-        HttpEntityEnclosingRequestBase request;
         if(getId() == -1) {
-            request = new HttpPost(getRemoteUri());
+            return HTTPHelper.postJSONForObject(getResourceUri(), toJSON()) != null;
         } else {
-            request = new HttpPut(getResourceUri());
+            return HTTPHelper.putJSONForObject(getResourceUri(), toJSON()) != null;
         }
-        HTTPHelper.addJSONHeaders(request);
-        try {
-            request.setEntity(new ByteArrayEntity(toJSON().toString().getBytes("UTF-8")));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        try {
-            HttpResponse response = httpClient.execute(request);
-            return response.getStatusLine().getStatusCode() == 200;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     public String getResourceUri() {

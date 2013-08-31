@@ -45,17 +45,16 @@ public final class HTTPHelper {
         }
     }
 
-    public static JSONObject getJSON(String uri) {
+    private static Object getJSON(String uri, boolean receivesCollection) {
         HttpGet request = new HttpGet(uri);
         addJSONHeaders(request);
         try {
-            HttpResponse response = httpClient.execute(request);
-            String responseContent = getReponseContent(response);
-            JSONObject responseJSON = new JSONObject(responseContent);
-            return responseJSON;
+            if(receivesCollection) {
+                return getJSONArrayResponse(httpClient.execute(request));
+            } else {
+                return getJSONObjectResponse(httpClient.execute(request));
+            }
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
@@ -103,13 +102,28 @@ public final class HTTPHelper {
         }
     }
 
+    public static JSONObject getJSONObject(String uri) {
+        return (JSONObject)getJSON(uri, false);
+    }
+
+    public static JSONArray getJSONArray(String uri) {
+        return (JSONArray)getJSON(uri, true);
+    }
+
     public static JSONObject putJSONForObject(String uri, JSONObject data) {
         return (JSONObject)postOrPutJSON(uri, data, "PUT", false);
     }
 
-    public static void postJSON(String uri, JSONObject data) {
-        postOrPutJSON(uri, data, "POST");
+    public static JSONArray putJSONForArray(String uri, JSONObject data) {
+        return (JSONArray)postOrPutJSON(uri, data, "PUT", true);
+    }
 
+    public static JSONObject postJSONForObject(String uri, JSONObject data) {
+        return (JSONObject)postOrPutJSON(uri, data, "POST", false);
+    }
+
+    public static JSONArray postJSONForArray(String uri, JSONObject data) {
+        return (JSONArray)postOrPutJSON(uri, data, "POST", true);
     }
 
 }
