@@ -3,18 +3,16 @@ package com.tuvistavie.meetup.auth.activity;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tuvistavie.meetup.R;
-import com.tuvistavie.meetup.util.HTTPHelper;
-
-import org.json.JSONObject;
+import com.tuvistavie.meetup.auth.model.User;
 
 import java.util.regex.Pattern;
 
@@ -28,6 +26,8 @@ import roboguice.inject.InjectView;
 public class CheckMailActivity extends RoboActivity {
 
     private static final String TAG = "com.tuvistavie.meetup.uth.activity.CheckMailActivity";
+
+    public static final String TOKEN_EXTRA = "CheckMailActivity.TOKEN_EXTRA";
 
     private Pattern emailPattern = Patterns.EMAIL_ADDRESS;
 
@@ -55,16 +55,10 @@ public class CheckMailActivity extends RoboActivity {
         return "";
     }
 
-    private void finalizeActivity() {
-        JSONObject jsonObject = new JSONObject();
-        Intent intent = new Intent(this, EnterPinActivity.class);
-        startActivity(intent);
-    }
-
     public void confirm(View v) {
         String emailText = confirmEmailEdit.getText().toString();
         if(emailPattern.matcher(emailText).matches()) {
-            finalizeActivity();
+            new GetTokenFileTask().execute(new User(emailText));
         } else {
             emailErrorText.setText(emailErrorString);
         }
@@ -72,9 +66,25 @@ public class CheckMailActivity extends RoboActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.check_mail, menu);
         return true;
+    }
+
+    private class GetTokenFileTask extends AsyncTask<User, Void, String> {
+
+        @Override
+        protected String doInBackground(User... users) {
+            User user = users[0];
+            return user.getRegistrationToken();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Intent intent = new Intent(CheckMailActivity.this, EnterPinActivity.class);
+            intent.putExtra(TOKEN_EXTRA, result);
+            startActivity(intent);
+        }
+
     }
     
 }

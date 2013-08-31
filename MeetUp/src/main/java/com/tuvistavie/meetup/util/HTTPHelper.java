@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 /**
  * Created by daniel on 8/31/13.
@@ -119,6 +120,18 @@ public final class HTTPHelper {
     }
 
     public static JSONObject postJSONForObject(String uri, JSONObject data) {
+        return (JSONObject)postOrPutJSON(uri, data, "POST", false);
+    }
+
+    public static JSONObject postJSONForObject(String uri, Map<String, String> entries) {
+        JSONObject data = new JSONObject();
+        for(Map.Entry<String, String> entry: entries.entrySet()) {
+            try {
+                data.put(entry.getKey(), entry.getValue());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         return (JSONObject)postOrPutJSON(uri, data, "POST", false);
     }
 

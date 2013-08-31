@@ -13,7 +13,7 @@ public enum Routes {
     GET_AUTH_TOKEN("/auth/get_token");
 
     static final String PROTOCOL = "http";
-    static final String HOST = "localhost";
+    static final String HOST = "192.168.100.102";
     static final int PORT = 3000;
 
     private String route;
