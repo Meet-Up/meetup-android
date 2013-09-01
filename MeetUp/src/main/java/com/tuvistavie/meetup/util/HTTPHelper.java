@@ -139,4 +139,14 @@ public final class HTTPHelper {
         return (JSONArray)postOrPutJSON(uri, data, "POST", true);
     }
 
+    public static String addParameterToURI(String uri, String key, String value) {
+        if(!uri.contains("?")) {
+            uri += "?";
+        } else {
+            uri += "&";
+        }
+        uri += key + "=" + value;
+        return uri;
+    }
+
 }

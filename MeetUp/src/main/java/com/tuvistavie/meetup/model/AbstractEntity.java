@@ -12,7 +12,7 @@ import org.json.JSONObject;
 /**
  * Created by daniel on 8/31/13.
  */
-public abstract class AbstractEntity implements Entity, JSONSerializable {
+public abstract class AbstractEntity implements Entity {
     protected String remoteUri;
     protected int id = -1;
 
@@ -53,7 +53,11 @@ public abstract class AbstractEntity implements Entity, JSONSerializable {
 
     @Override
     public void fetch() {
-        fromJSON(HTTPHelper.getJSONObject(remoteUri));
+        String uri = remoteUri;
+        if(needsAuthentication()) {
+            uri = HTTPHelper.addParameterToURI(uri, "token", User.getInstance().getToken());
+        }
+        fromJSON(HTTPHelper.getJSONObject(uri));
     }
 
     @Override

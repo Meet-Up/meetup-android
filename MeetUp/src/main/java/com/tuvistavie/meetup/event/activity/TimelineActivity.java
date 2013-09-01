@@ -9,35 +9,25 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.auth.activity.CheckMailActivity;
 import com.tuvistavie.meetup.auth.model.User;
 import com.tuvistavie.meetup.event.fragment.TimelineFragment;
+import com.tuvistavie.meetup.event.model.Timeline;
 
 import roboguice.activity.RoboFragmentActivity;
+import roboguice.inject.InjectResource;
+import roboguice.inject.InjectView;
 
 public class TimelineActivity extends RoboFragmentActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which
-     * will keep every loaded fragment in memory. If this becomes too memory
-     * intensive, it may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    SectionsPagerAdapter mSectionsPagerAdapter;
+    SectionsPagerAdapter sectionsPagerAdapter;
+    @InjectView(R.id.pager) ViewPager viewPager;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    ViewPager mViewPager;
+    @InjectResource(R.string.timeline) String timelineString;
+    @InjectResource(R.string.friend_list) String friendListString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,19 +41,15 @@ public class TimelineActivity extends RoboFragmentActivity {
         } else {
             initialize();
         }
+
     }
 
     private void initialize() {
         setContentView(R.layout.activity_timeline);
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the app.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
+        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
     }
 
     @Override
@@ -82,12 +68,6 @@ public class TimelineActivity extends RoboFragmentActivity {
         return true;
     }
     
-    
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -96,9 +76,6 @@ public class TimelineActivity extends RoboFragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a DummySectionFragment (defined as a static inner class
-            // below) with the page number as its lone argument.
             Fragment fragment = new TimelineFragment();
             Bundle args = new Bundle();
             args.putInt(TimelineFragment.ARG_SECTION_NUMBER, position + 1);
@@ -108,20 +85,16 @@ public class TimelineActivity extends RoboFragmentActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
+                    return timelineString;
                 case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
+                    return friendListString;
             }
             return null;
         }

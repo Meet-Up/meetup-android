@@ -5,7 +5,7 @@ import org.json.JSONObject;
 /**
  * Created by daniel on 8/31/13.
  */
-public interface JSONSerializable {
+public interface JSONObjectSerializable {
     public void fromJSON(JSONObject jsonObject);
     public JSONObject toJSON();
 }
