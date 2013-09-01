@@ -32,6 +32,7 @@ public class Event extends AbstractEntity {
         this();
         this.name = name;
         this.description = description;
+        datePossibilities = new ArrayList<EventDate>();
         for(EventDate d: dates) {
             datePossibilities.add(d);
         }
