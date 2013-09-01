@@ -98,7 +98,7 @@ public class User extends AbstractEntity {
     public static boolean makeAuthentication(String registrationToken, String pinCode) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("token", registrationToken);
-        params.put("pin_code", pinCode);
+        params.put("pin", pinCode);
         String uri = Routes.CONFIRM_USER.getRoute();
         Log.d(TAG, "starting to get authentication token");
         JSONObject reply = HTTPHelper.postJSONForObject(uri, params);
@@ -115,5 +115,9 @@ public class User extends AbstractEntity {
             user.saveToPrefs();
             return true;
         }
+    }
+
+    public String getToken() {
+        return token;
     }
 }

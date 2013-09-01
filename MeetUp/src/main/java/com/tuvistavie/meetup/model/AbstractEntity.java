@@ -1,28 +1,20 @@
 package com.tuvistavie.meetup.model;
 
+import com.tuvistavie.meetup.auth.model.User;
 import com.tuvistavie.meetup.util.HTTPHelper;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 
 /**
  * Created by daniel on 8/31/13.
  */
 public abstract class AbstractEntity implements Entity, JSONSerializable {
-    private String remoteUri;
-    protected int id;
+    protected String remoteUri;
+    protected int id = -1;
 
     protected HttpClient httpClient;
 
@@ -55,6 +47,10 @@ public abstract class AbstractEntity implements Entity, JSONSerializable {
         return path + "/" + getId();
     }
 
+    protected boolean isPersisted() {
+        return getId() != -1;
+    }
+
     @Override
     public void fetch() {
         fromJSON(HTTPHelper.getJSONObject(remoteUri));
@@ -62,10 +58,19 @@ public abstract class AbstractEntity implements Entity, JSONSerializable {
 
     @Override
     public boolean save() {
-        if(getId() == -1) {
-            return HTTPHelper.postJSONForObject(getResourceUri(), toJSON()) != null;
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(getEntityKey(), toJSON());
+            if(needsAuthentication()) {
+                jsonObject.put("token", User.getInstance().getToken());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(isPersisted()) {
+            return HTTPHelper.putJSONForObject(getResourceUri(), jsonObject) != null;
         } else {
-            return HTTPHelper.putJSONForObject(getResourceUri(), toJSON()) != null;
+            return HTTPHelper.postJSONForObject(getRemoteUri(), jsonObject) != null;
         }
     }
 
@@ -87,5 +92,13 @@ public abstract class AbstractEntity implements Entity, JSONSerializable {
 
     public int getId() {
         return id;
+    }
+
+    public String getEntityKey() {
+        return getClass().getSimpleName().toLowerCase();
+    }
+
+    public boolean needsAuthentication() {
+        return true;
     }
 }

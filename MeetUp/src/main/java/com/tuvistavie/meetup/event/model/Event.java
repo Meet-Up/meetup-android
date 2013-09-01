@@ -1,6 +1,7 @@
 package com.tuvistavie.meetup.event.model;
 
 import com.tuvistavie.meetup.model.AbstractEntity;
+import com.tuvistavie.meetup.util.Routes;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,18 +19,26 @@ public class Event extends AbstractEntity {
 
     public Event() {
         super();
+        this.remoteUri = Routes.EVENTS.getRoute();
     }
 
     public Event(String name, String description, EventDate... dates) {
-
+        this();
+        this.name = name;
+        this.description = description;
+        for(EventDate d: dates) {
+            datePossibilities.add(d);
+        }
     }
 
     public Event(JSONObject jsonObject) {
         super(jsonObject);
+        this.remoteUri = Routes.EVENTS.getRoute();
     }
 
     public Event(int id) {
         super(id);
+        this.remoteUri = Routes.EVENTS.getRoute();
     }
 
     @Override

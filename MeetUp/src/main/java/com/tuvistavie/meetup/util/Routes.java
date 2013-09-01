@@ -9,10 +9,11 @@ import java.util.Map;
  */
 public enum Routes {
     GET_AUTH_TOKEN("/auth/get_token"),
-    CONFIRM_USER("/auth/confirm_user");
+    CONFIRM_USER("/auth/confirm_user"),
+    EVENTS("/events");
 
     static final String PROTOCOL = "http";
-    static final String HOST = "192.168.100.102";
+    static final String HOST = "192.168.100.101";
     static final int PORT = 3000;
 
     private String route;
