@@ -35,7 +35,8 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
         for(int i = 0; i < jsonArray.length(); i++) {
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                entities.add(createEntity(jsonObject));
+                T entity = createEntity(jsonObject);
+                entities.add(entity);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

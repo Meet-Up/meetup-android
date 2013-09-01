@@ -12,7 +12,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
+        android:id="@+id/time_list_view"
         android:layout_weight="8"/>
 
 </LinearLayout>

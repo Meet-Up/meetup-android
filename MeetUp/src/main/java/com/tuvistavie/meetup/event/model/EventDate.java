@@ -49,4 +49,12 @@ public class EventDate extends AbstractEntity {
             return null;
         }
     }
+
+    public Date getStartDateTime() {
+        return startDateTime;
+    }
+
+    public Date getEndDateTime() {
+        return endDateTime;
+    }
 }

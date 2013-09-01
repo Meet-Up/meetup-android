@@ -12,4 +12,15 @@ public final class DateTimeUtil {
         c.set(year, month, day, hour, time);
         return c.getTime();
     }
+
+    public static String formatDate(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+        return year + "/" + month + "/" + day + " " + hour + ":" + minute;
+    }
 }

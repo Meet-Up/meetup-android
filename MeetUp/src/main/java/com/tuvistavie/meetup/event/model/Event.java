@@ -1,13 +1,17 @@
 package com.tuvistavie.meetup.event.model;
 
 import com.tuvistavie.meetup.model.AbstractEntity;
+import com.tuvistavie.meetup.util.DateTimeUtil;
 import com.tuvistavie.meetup.util.Routes;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.cert.PKIXCertPathBuilderResult;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by daniel on 8/31/13.
@@ -15,7 +19,9 @@ import java.util.ArrayList;
 public class Event extends AbstractEntity {
     protected String name;
     protected String description;
-    protected ArrayList<EventDate> datePossibilities = new ArrayList<EventDate>();
+    protected ArrayList<EventDate> datePossibilities;
+
+    protected Participant creator;
 
     public Event() {
         super();
@@ -43,11 +49,15 @@ public class Event extends AbstractEntity {
 
     @Override
     public void fromJSON(JSONObject jsonObject) {
+        if(datePossibilities == null) {
+            datePossibilities = new ArrayList<EventDate>();
+        }
         try {
             id = jsonObject.getInt("id");
             name = jsonObject.getString("name");
             description = jsonObject.getString("description");
-            JSONArray dates = jsonObject.getJSONArray("dates");
+            creator = new Participant(jsonObject.getJSONObject("creator"));
+            JSONArray dates = jsonObject.getJSONArray("event_dates");
             for(int i = 0; i < dates.length(); i++) {
                 datePossibilities.add(new EventDate(dates.getJSONObject(i)));
             }
@@ -72,5 +82,47 @@ public class Event extends AbstractEntity {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ArrayList<EventDate> getDatePossibilities() {
+        return datePossibilities;
+    }
+
+    public void setDatePossibilities(ArrayList<EventDate> datePossibilities) {
+        this.datePossibilities = datePossibilities;
+    }
+
+    public Participant getCreator() {
+        return creator;
+    }
+
+    public String getStartDateString() {
+        if(datePossibilities.isEmpty()) {
+            return "";
+        }
+        return DateTimeUtil.formatDate(datePossibilities.get(0).getStartDateTime());
+    }
+
+    public String getEndDateString() {
+        if(datePossibilities.isEmpty()) {
+            return "";
+        }
+        return DateTimeUtil.formatDate(datePossibilities.get(0).getEndDateTime());
     }
 }
