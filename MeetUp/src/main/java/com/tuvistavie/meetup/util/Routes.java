@@ -13,8 +13,8 @@ public enum Routes {
     EVENTS("/events");
 
     static final String PROTOCOL = "http";
-    static final String HOST = "192.168.100.101";
-    static final int PORT = 3000;
+    static final String HOST = "133.242.190.193";
+    static final int PORT = 80;
 
     private String route;
 
