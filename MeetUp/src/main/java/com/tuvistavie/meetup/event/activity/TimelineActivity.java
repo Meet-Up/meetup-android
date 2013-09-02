@@ -1,10 +1,6 @@
 package com.tuvistavie.meetup.event.activity;
 
-import java.util.Locale;
-
-
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +12,6 @@ import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.auth.activity.CheckMailActivity;
 import com.tuvistavie.meetup.auth.model.User;
 import com.tuvistavie.meetup.event.fragment.TimelineFragment;
-import com.tuvistavie.meetup.event.model.Timeline;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectResource;
@@ -35,14 +30,7 @@ public class TimelineActivity extends RoboFragmentActivity {
         super.onCreate(savedInstanceState);
 
         User user = User.getInstance();
-
-        if(user == null) {
-            Intent intent = new Intent(this, CheckMailActivity.class);
-            startActivityForResult(intent, CheckMailActivity.REQUEST_CODE);
-        } else {
-            initialize();
-        }
-
+        initialize();
     }
 
     private void initialize() {
@@ -51,15 +39,6 @@ public class TimelineActivity extends RoboFragmentActivity {
         sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(sectionsPagerAdapter);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == CheckMailActivity.REQUEST_CODE && resultCode == RESULT_OK) {
-            initialize();
-        } else {
-            finish();
-        }
     }
 
     @Override
@@ -100,8 +79,4 @@ public class TimelineActivity extends RoboFragmentActivity {
             return null;
         }
     }
-
-
-
-
 }
