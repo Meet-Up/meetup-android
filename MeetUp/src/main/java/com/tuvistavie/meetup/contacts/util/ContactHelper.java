@@ -23,7 +23,10 @@ public final class ContactHelper {
             if(Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
                 String displayName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                 String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-
+                List<String> emails = getUserEmails(context, id);
+                List<String> numbers = getUserNumbers(context, id);
+                Contact contact = new Contact(displayName, emails, numbers);
+                contactList.add(contact);
             }
         }
         cursor.close();
@@ -31,7 +34,7 @@ public final class ContactHelper {
         return contactList;
     }
 
-    protected static List<String> getUserEmails(Context context, String userId) {
+    private static List<String> getUserEmails(Context context, String userId) {
         Cursor cursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
                 ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?", new String[]{userId}, null);
         List<String> emails = new ArrayList<String>();
@@ -41,5 +44,17 @@ public final class ContactHelper {
         }
         cursor.close();
         return emails;
+    }
+
+    private static List<String> getUserNumbers(Context context, String userId) {
+        Cursor cursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{userId}, null);
+        List<String> phoneNumbers = new ArrayList<String>();
+        while(cursor.moveToNext()) {
+            String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            phoneNumbers.add(phoneNumber);
+        }
+        cursor.close();
+        return phoneNumbers;
     }
 }

@@ -1,5 +1,7 @@
 package com.tuvistavie.meetup.contacts.model;
 
+import com.tuvistavie.meetup.App;
+import com.tuvistavie.meetup.contacts.util.ContactHelper;
 import com.tuvistavie.meetup.model.AbstractEntity;
 import com.tuvistavie.meetup.util.JSONHelper;
 
@@ -33,6 +35,10 @@ public class Contact extends AbstractEntity {
         } catch (JSONException e) {
 
         }
+    }
+
+    public static List<Contact> loadFromPhonebook() {
+        return ContactHelper.getContactList(App.getContext());
     }
 
     @Override

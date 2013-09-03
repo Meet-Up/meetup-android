@@ -54,7 +54,7 @@ public class TimeLineActivity extends RoboFragmentActivity implements ActionBar.
                             .setTabListener(this));
         }
 
-        List<Contact> contacts = ContactHelper.getContactList(this);
+        List<Contact> contacts = Contact.loadFromPhonebook();
     }
 
     @Override
