@@ -1,5 +1,7 @@
 package com.tuvistavie.meetup.event.activity;
 
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,41 +11,67 @@ import android.view.Menu;
 
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.event.fragment.TimeLineFragment;
+import com.viewpagerindicator.TitlePageIndicator;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 
-public class TimeLineActivity extends RoboFragmentActivity {
-
-    SectionsPagerAdapter sectionsPagerAdapter;
-    @InjectView(R.id.pager) ViewPager viewPager;
+public class TimeLineActivity extends RoboFragmentActivity implements ActionBar.TabListener {
 
     @InjectResource(R.string.timeLine) String timeLineString;
     @InjectResource(R.string.friend_list) String friendListString;
+    @InjectView(R.id.pager) ViewPager viewPager;
+
+    private SectionsPagerAdapter sectionsPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        initialize();
-    }
-
-    private void initialize() {
         setContentView(R.layout.activity_timeline);
+        TitlePageIndicator foo;
 
-        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
+        final ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        sectionsPager = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        viewPager.setAdapter(sectionsPager);
+
+        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+            }
+        });
+
+        for (int i = 0; i < sectionsPager.getCount(); i++) {
+            actionBar.addTab(
+                    actionBar.newTab()
+                            .setText(sectionsPager.getPageTitle(i))
+                            .setTabListener(this));
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.timeline, menu);
         return true;
     }
     
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -54,7 +82,6 @@ public class TimeLineActivity extends RoboFragmentActivity {
         public Fragment getItem(int position) {
             Fragment fragment = new TimeLineFragment();
             Bundle args = new Bundle();
-            args.putInt(TimeLineFragment.ARG_SECTION_NUMBER, position + 1);
             fragment.setArguments(args);
             return fragment;
         }

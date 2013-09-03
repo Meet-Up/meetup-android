@@ -28,8 +28,6 @@ public class TimeLineFragment extends RoboFragment {
     @Inject TimeLineAdapter adapter;
     @Inject TimeLine timeLine;
 
-    //@InjectExtra(ARG_SECTION_NUMBER) int argSection;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
