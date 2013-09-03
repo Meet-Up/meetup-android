@@ -2,16 +2,12 @@ package com.tuvistavie.meetup.event.activity;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Contacts;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
-import android.widget.Toast;
 
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.contacts.model.Contact;
