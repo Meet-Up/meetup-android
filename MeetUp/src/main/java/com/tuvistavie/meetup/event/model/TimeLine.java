@@ -6,7 +6,7 @@ import com.tuvistavie.meetup.util.Routes;
 /**
  * Created by daniel on 9/1/13.
  */
-public class Timeline extends AbstractCollection<Event> {
+public class TimeLine extends AbstractCollection<Event> {
     @Override
     protected Class<?> getEntityClass() {
         return Event.class;

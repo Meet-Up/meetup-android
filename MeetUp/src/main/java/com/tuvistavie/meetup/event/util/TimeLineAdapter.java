@@ -10,30 +10,30 @@ import android.widget.TextView;
 import com.tuvistavie.meetup.App;
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.event.model.Event;
-import com.tuvistavie.meetup.event.model.Timeline;
+import com.tuvistavie.meetup.event.model.TimeLine;
 
 /**
  * Created by daniel on 9/1/13.
  */
-public class TimelineAdapter extends BaseAdapter {
-    private Timeline timeline;
+public class TimeLineAdapter extends BaseAdapter {
+    private TimeLine timeLine;
 
-    public TimelineAdapter() {
+    public TimeLineAdapter() {
         this(null);
     }
 
-    public TimelineAdapter(Timeline timeline) {
-        this.timeline = timeline;
+    public TimeLineAdapter(TimeLine timeLine) {
+        this.timeLine = timeLine;
     }
 
     @Override
     public int getCount() {
-        return timeline.getEntities().size();
+        return timeLine.getEntities().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return timeline.getEntities().get(position);
+        return timeLine.getEntities().get(position);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class TimelineAdapter extends BaseAdapter {
         } else {
             rowView = contextView;
         }
-        Event event = timeline.getEntities().get(position);
+        Event event = timeLine.getEntities().get(position);
         ((TextView) rowView.findViewById(R.id.event_name_text)).setText(event.getName());
         ((TextView) rowView.findViewById(R.id.event_organizer_text)).setText(event.getCreator().getUsername());
         ((TextView) rowView.findViewById(R.id.event_from_text)).setText(event.getStartDateString());
@@ -59,11 +59,11 @@ public class TimelineAdapter extends BaseAdapter {
         return rowView;
     }
 
-    public Timeline getTimeline() {
-        return timeline;
+    public TimeLine getTimeLine() {
+        return timeLine;
     }
 
-    public void setTimeline(Timeline timeline) {
-        this.timeline = timeline;
+    public void setTimeLine(TimeLine timeLine) {
+        this.timeLine = timeLine;
     }
 }

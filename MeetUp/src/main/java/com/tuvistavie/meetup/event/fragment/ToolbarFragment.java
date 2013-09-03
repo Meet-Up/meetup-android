@@ -9,7 +9,6 @@ import android.widget.ImageButton;
 
 import com.tuvistavie.meetup.event.activity.CreateEventActivity;
 import com.tuvistavie.meetup.R;
-import com.tuvistavie.meetup.event.model.Timeline;
 
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;

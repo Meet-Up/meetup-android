@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tuvistavie.meetup.event.activity.TimelineActivity"
+            android:name=".event.activity.TimeLineActivity"
             android:label="Timeline" />
         <activity
             android:name="com.tuvistavie.meetup.auth.activity.CheckMailActivity"

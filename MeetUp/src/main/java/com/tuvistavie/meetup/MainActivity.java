@@ -6,15 +6,7 @@ import android.os.Bundle;
 
 import com.tuvistavie.meetup.auth.activity.CheckMailActivity;
 import com.tuvistavie.meetup.auth.model.User;
-import com.tuvistavie.meetup.event.activity.TimelineActivity;
-import com.tuvistavie.meetup.util.HTTPHelper;
-import com.tuvistavie.meetup.util.Routes;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.tuvistavie.meetup.event.activity.TimeLineActivity;
 
 import roboguice.activity.RoboActivity;
 
@@ -32,7 +24,7 @@ public class MainActivity extends RoboActivity {
         if(user == null) {
             loginUser();
         } else {
-            new CheckAuthTask().execute(user.getToken());
+            new CheckAuthTask().execute(user);
         }
     }
 
@@ -42,7 +34,7 @@ public class MainActivity extends RoboActivity {
     }
 
     private void startApplication() {
-        Intent intent = new Intent(this, TimelineActivity.class);
+        Intent intent = new Intent(this, TimeLineActivity.class);
         startActivityForResult(intent, 0);
     }
 
@@ -56,18 +48,10 @@ public class MainActivity extends RoboActivity {
     }
 
 
-    private class CheckAuthTask extends AsyncTask<String, Void, Boolean> {
+    private class CheckAuthTask extends AsyncTask<User, Void, Boolean> {
         @Override
-        protected Boolean doInBackground(String... data) {
-            String token = data[0];
-            Map<String, String> params = new HashMap<String, String>();
-            params.put("token", token);
-            JSONObject jsonObject =  HTTPHelper.getJSONObject(Routes.CHECK_AUTH.generateRoute(params));
-            try {
-                return jsonObject.getBoolean("success");
-            } catch (Exception e) {
-                return false;
-            }
+        protected Boolean doInBackground(User... users) {
+            return users[0].checkAuthentication();
         }
 
         @Override

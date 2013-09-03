@@ -2,17 +2,16 @@ package com.tuvistavie.meetup.event.fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.google.inject.Inject;
 import com.tuvistavie.meetup.R;
-import com.tuvistavie.meetup.event.model.Timeline;
-import com.tuvistavie.meetup.event.util.TimelineAdapter;
+import com.tuvistavie.meetup.event.model.TimeLine;
+import com.tuvistavie.meetup.event.util.TimeLineAdapter;
 
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
@@ -20,12 +19,14 @@ import roboguice.inject.InjectView;
 /**
  * Created by daniel on 8/31/13.
  */
-public class TimelineFragment extends RoboFragment {
+public class TimeLineFragment extends RoboFragment {
+    private static final String TAG = "com.tuvistavie.meetup.event.fragment.TimeLineFragment";
+
     public static final String ARG_SECTION_NUMBER = "section_number";
 
     @InjectView(R.id.time_list_view) ListView listView;
-    @Inject TimelineAdapter adapter;
-    @Inject Timeline timeline;
+    @Inject TimeLineAdapter adapter;
+    @Inject TimeLine timeLine;
 
     //@InjectExtra(ARG_SECTION_NUMBER) int argSection;
 
@@ -40,20 +41,21 @@ public class TimelineFragment extends RoboFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter.setTimeline(timeline);
+        Log.d(TAG, "onViewCreated called");
+        adapter.setTimeLine(timeLine);
         listView.setAdapter(adapter);
-        new LoadTimelineTask().execute();
+        new LoadTimeLineTask().execute();
     }
 
-    private class LoadTimelineTask extends AsyncTask<Void, Void, Timeline> {
+    private class LoadTimeLineTask extends AsyncTask<Void, Void, TimeLine> {
         @Override
-        protected Timeline doInBackground(Void... params) {
-            timeline.fetch();
-            return timeline;
+        protected TimeLine doInBackground(Void... params) {
+            timeLine.fetch();
+            return timeLine;
         }
 
         @Override
-        protected void onPostExecute(Timeline timeline) {
+        protected void onPostExecute(TimeLine timeLine) {
             adapter.notifyDataSetChanged();
         }
     }

@@ -1,6 +1,5 @@
 package com.tuvistavie.meetup.event.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,27 +8,24 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
 import com.tuvistavie.meetup.R;
-import com.tuvistavie.meetup.auth.activity.CheckMailActivity;
-import com.tuvistavie.meetup.auth.model.User;
-import com.tuvistavie.meetup.event.fragment.TimelineFragment;
+import com.tuvistavie.meetup.event.fragment.TimeLineFragment;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 
-public class TimelineActivity extends RoboFragmentActivity {
+public class TimeLineActivity extends RoboFragmentActivity {
 
     SectionsPagerAdapter sectionsPagerAdapter;
     @InjectView(R.id.pager) ViewPager viewPager;
 
-    @InjectResource(R.string.timeline) String timelineString;
+    @InjectResource(R.string.timeLine) String timeLineString;
     @InjectResource(R.string.friend_list) String friendListString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        User user = User.getInstance();
         initialize();
     }
 
@@ -56,9 +52,9 @@ public class TimelineActivity extends RoboFragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = new TimelineFragment();
+            Fragment fragment = new TimeLineFragment();
             Bundle args = new Bundle();
-            args.putInt(TimelineFragment.ARG_SECTION_NUMBER, position + 1);
+            args.putInt(TimeLineFragment.ARG_SECTION_NUMBER, position + 1);
             fragment.setArguments(args);
             return fragment;
         }
@@ -72,7 +68,7 @@ public class TimelineActivity extends RoboFragmentActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return timelineString;
+                    return timeLineString;
                 case 1:
                     return friendListString;
             }

@@ -117,6 +117,17 @@ public class User extends AbstractEntity {
         }
     }
 
+    public boolean checkAuthentication() {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("token", token);
+        JSONObject jsonObject =  HTTPHelper.getJSONObject(Routes.CHECK_AUTH.generateRoute(params));
+        try {
+            return jsonObject.getBoolean("success");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public String getToken() {
         return token;
     }
