@@ -2,16 +2,23 @@ package com.tuvistavie.meetup.event.activity;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Contacts;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.tuvistavie.meetup.R;
+import com.tuvistavie.meetup.contacts.model.Contact;
+import com.tuvistavie.meetup.contacts.util.ContactHelper;
 import com.tuvistavie.meetup.event.fragment.TimeLineFragment;
-import com.viewpagerindicator.TitlePageIndicator;
+
+import java.util.List;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectResource;
@@ -29,7 +36,6 @@ public class TimeLineActivity extends RoboFragmentActivity implements ActionBar.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        TitlePageIndicator foo;
 
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -51,6 +57,8 @@ public class TimeLineActivity extends RoboFragmentActivity implements ActionBar.
                             .setText(sectionsPager.getPageTitle(i))
                             .setTabListener(this));
         }
+
+        List<Contact> contacts = ContactHelper.getContactList(this);
     }
 
     @Override
