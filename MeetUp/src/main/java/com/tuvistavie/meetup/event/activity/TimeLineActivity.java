@@ -11,7 +11,6 @@ import android.view.Menu;
 
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.event.fragment.TimeLineFragment;
-import com.viewpagerindicator.TitlePageIndicator;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectResource;
@@ -29,7 +28,6 @@ public class TimeLineActivity extends RoboFragmentActivity implements ActionBar.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        TitlePageIndicator foo;
 
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
