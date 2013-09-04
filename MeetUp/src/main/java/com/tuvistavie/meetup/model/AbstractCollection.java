@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by daniel on 9/1/13.
@@ -15,9 +16,13 @@ import java.util.ArrayList;
 public abstract class AbstractCollection<T extends Entity> implements Collection {
 
     protected ArrayList<T> entities;
+    protected int minFetchTimeDiff;
+    private Date lastFetch;
 
     public AbstractCollection() {
         entities = new ArrayList<T>();
+        minFetchTimeDiff = 1000;
+        lastFetch = new Date(0);
     }
 
     @Override
@@ -45,6 +50,11 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
 
     @Override
     public void fetch() {
+        Date currentTime = new Date();
+        if(currentTime.getTime() - lastFetch.getTime() <= minFetchTimeDiff) {
+            return;
+        }
+        lastFetch = new Date();
         String uri = getURI();
         if(needsAuthentication()) {
             uri = HTTPHelper.addParameterToURI(uri, "token", User.getInstance().getToken());

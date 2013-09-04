@@ -11,9 +11,9 @@ import android.view.Menu;
 
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.contacts.model.Contact;
-import com.tuvistavie.meetup.contacts.util.ContactHelper;
 import com.tuvistavie.meetup.event.fragment.TimeLineFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import roboguice.activity.RoboFragmentActivity;
@@ -78,21 +78,22 @@ public class TimeLineActivity extends RoboFragmentActivity implements ActionBar.
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private List<Fragment> fragments;
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            fragments = new ArrayList<Fragment>();
+            fragments.add(new TimeLineFragment());
         }
 
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = new TimeLineFragment();
-            Bundle args = new Bundle();
-            fragment.setArguments(args);
-            return fragment;
+            return fragments.get(position);
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return fragments.size();
         }
 
         @Override

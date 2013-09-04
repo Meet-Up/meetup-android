@@ -22,8 +22,6 @@ import roboguice.inject.InjectView;
 public class TimeLineFragment extends RoboFragment {
     private static final String TAG = "com.tuvistavie.meetup.event.fragment.TimeLineFragment";
 
-    public static final String ARG_SECTION_NUMBER = "section_number";
-
     @InjectView(R.id.time_list_view) ListView listView;
     @Inject TimeLineAdapter adapter;
     @Inject TimeLine timeLine;
