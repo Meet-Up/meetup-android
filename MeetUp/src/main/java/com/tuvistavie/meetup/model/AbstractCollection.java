@@ -1,6 +1,8 @@
 package com.tuvistavie.meetup.model;
 
 import com.tuvistavie.meetup.auth.model.User;
+import com.tuvistavie.meetup.model.listener.OnFetchListener;
+import com.tuvistavie.meetup.model.listener.OnUpdateListener;
 import com.tuvistavie.meetup.util.HTTPHelper;
 
 import org.json.JSONArray;
@@ -19,6 +21,8 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
     protected int minFetchTimeDiff;
     private Date lastFetch;
 
+    private OnFetchListener onFetchListener;
+    private OnUpdateListener onUpdateListener;
 
     public AbstractCollection() {
         entities = new ArrayList<T>();
@@ -62,6 +66,20 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
         }
         JSONArray jsonArray = HTTPHelper.getJSONArray(uri);
         fromJSON(jsonArray);
+        runOnFetch();
+    }
+
+    private void runOnFetch() {
+        runOnUpdate();
+        if(onFetchListener != null) {
+            onFetchListener.onFetch(this);
+        }
+    }
+
+    private void runOnUpdate() {
+        if(onUpdateListener != null) {
+            onUpdateListener.onUpdate(this);
+        }
     }
 
     // FIXME: batch save collection
@@ -88,5 +106,13 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
 
     protected boolean needsAuthentication() {
         return true;
+    }
+
+    public void setOnFetchListener(OnFetchListener onFetchListener) {
+        this.onFetchListener = onFetchListener;
+    }
+
+    public void setOnUpdateListener(OnUpdateListener onUpdateListener) {
+        this.onUpdateListener = onUpdateListener;
     }
 }

@@ -3,6 +3,7 @@ package com.tuvistavie.meetup.util;
 import android.widget.BaseAdapter;
 
 import com.tuvistavie.meetup.model.AbstractCollection;
+import com.tuvistavie.meetup.model.listener.OnUpdateListener;
 
 /**
  * Created by daniel on 9/4/13.
@@ -15,7 +16,7 @@ public abstract class CollectionAdapter<T> extends BaseAdapter {
     }
 
     public CollectionAdapter(AbstractCollection collection) {
-        this.collection = collection;
+        this.setCollection(collection);
     }
 
     public void add(T elem) {
@@ -24,6 +25,17 @@ public abstract class CollectionAdapter<T> extends BaseAdapter {
 
     public void add(T elem, boolean notify) {
         collection.getEntities().add(elem);
+        if(notify) {
+            notifyDataSetChanged();
+        }
+    }
+
+    public void remove(int index) {
+        this.remove(index, true);
+    }
+
+    public void remove(int index, boolean notify) {
+        collection.getEntities().remove(index);
         if(notify) {
             notifyDataSetChanged();
         }
@@ -65,5 +77,11 @@ public abstract class CollectionAdapter<T> extends BaseAdapter {
 
     public void setCollection(AbstractCollection collection) {
         this.collection = collection;
+        this.collection.setOnUpdateListener(new OnUpdateListener() {
+            @Override
+            public void onUpdate(AbstractCollection collection) {
+                notifyDataSetChanged();
+            }
+        });
     }
 }
