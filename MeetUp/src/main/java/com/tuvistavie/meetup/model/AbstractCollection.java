@@ -1,5 +1,7 @@
 package com.tuvistavie.meetup.model;
 
+import android.os.AsyncTask;
+
 import com.tuvistavie.meetup.auth.model.User;
 import com.tuvistavie.meetup.model.listener.OnFetchListener;
 import com.tuvistavie.meetup.model.listener.OnUpdateListener;
@@ -114,5 +116,15 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
 
     public void setOnUpdateListener(OnUpdateListener onUpdateListener) {
         this.onUpdateListener = onUpdateListener;
+    }
+
+    public void fetchInBackground() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                fetch();
+                return null;
+            }
+        }.execute();
     }
 }

@@ -1,7 +1,13 @@
 package com.tuvistavie.meetup.util;
 
+import android.app.Activity;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.tuvistavie.meetup.App;
 import com.tuvistavie.meetup.model.AbstractCollection;
 import com.tuvistavie.meetup.model.listener.OnUpdateListener;
 
@@ -12,11 +18,6 @@ public abstract class CollectionAdapter<T> extends BaseAdapter {
     protected AbstractCollection collection;
 
     public CollectionAdapter() {
-        this(null);
-    }
-
-    public CollectionAdapter(AbstractCollection collection) {
-        this.setCollection(collection);
     }
 
     public void add(T elem) {
@@ -77,10 +78,29 @@ public abstract class CollectionAdapter<T> extends BaseAdapter {
 
     public void setCollection(AbstractCollection collection) {
         this.collection = collection;
+    }
+
+    public View getBaseView(int resId, View contextView, ViewGroup parent) {
+        View rowView;
+        if(contextView == null) {
+            LayoutInflater inflater = (LayoutInflater) App.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            rowView = inflater.inflate(resId, parent, false);
+        } else {
+            rowView = contextView;
+        }
+        return rowView;
+    }
+
+    public void enableAutoUpdate(final Activity activity) {
         this.collection.setOnUpdateListener(new OnUpdateListener() {
             @Override
             public void onUpdate(AbstractCollection collection) {
-                notifyDataSetChanged();
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifyDataSetChanged();
+                    }
+                });
             }
         });
     }

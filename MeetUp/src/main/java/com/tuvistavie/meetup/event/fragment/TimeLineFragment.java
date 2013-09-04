@@ -1,6 +1,5 @@
 package com.tuvistavie.meetup.event.fragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,20 +38,9 @@ public class TimeLineFragment extends RoboFragment {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "onViewCreated called");
         adapter.setCollection(timeLine);
+        adapter.enableAutoUpdate(getActivity());
         listView.setAdapter(adapter);
-        new LoadTimeLineTask().execute();
-    }
 
-    private class LoadTimeLineTask extends AsyncTask<Void, Void, TimeLine> {
-        @Override
-        protected TimeLine doInBackground(Void... params) {
-            timeLine.fetch();
-            return timeLine;
-        }
-
-        @Override
-        protected void onPostExecute(TimeLine timeLine) {
-            adapter.notifyDataSetChanged();
-        }
+        timeLine.fetchInBackground();
     }
 }

@@ -1,4 +1,4 @@
-package com.tuvistavie.meetup.event.fragment;
+package com.tuvistavie.meetup.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
