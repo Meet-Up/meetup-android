@@ -19,6 +19,7 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
     protected int minFetchTimeDiff;
     private Date lastFetch;
 
+
     public AbstractCollection() {
         entities = new ArrayList<T>();
         minFetchTimeDiff = 1000;
@@ -63,17 +64,14 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
         fromJSON(jsonArray);
     }
 
-
     // FIXME: batch save collection
     @Override
     public boolean save() {
         return true;
     }
 
-
     protected abstract Class<?> getEntityClass();
     protected abstract String getURI();
-
 
     protected T createEntity(JSONObject json) {
         try {

@@ -1,7 +1,7 @@
-package com.tuvistavie.meetup.contacts.model;
+package com.tuvistavie.meetup.contact.model;
 
 import com.tuvistavie.meetup.App;
-import com.tuvistavie.meetup.contacts.util.ContactHelper;
+import com.tuvistavie.meetup.contact.util.ContactHelper;
 import com.tuvistavie.meetup.model.AbstractEntity;
 import com.tuvistavie.meetup.util.JSONHelper;
 

@@ -1,5 +1,7 @@
 package com.tuvistavie.meetup.util;
 
+import com.tuvistavie.meetup.Config;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
@@ -11,11 +13,8 @@ public enum Routes {
     GET_AUTH_TOKEN("/auth/get_token"),
     CONFIRM_USER("/auth/confirm_user"),
     CHECK_AUTH("/auth/check"),
-    EVENTS("/events");
-
-    static final String PROTOCOL = "http";
-    static final String HOST = "192.168.100.103";
-    static final int PORT = 3000;
+    EVENTS("/events"),
+    CONTACTS("/contacts");
 
     private String route;
 
@@ -26,10 +25,10 @@ public enum Routes {
     public String generateRoute(String query) {
         try {
             URI uri = new URI(
-                    PROTOCOL,
+                    Config.PROTOCOL,
                     null,
-                    HOST,
-                    PORT,
+                    Config.HOST,
+                    Config.PORT,
                     route,
                     query,
                     null
@@ -55,20 +54,6 @@ public enum Routes {
     }
 
     public String getRoute() {
-        try {
-            URI uri = new URI(
-                    PROTOCOL,
-                    null,
-                    HOST,
-                    PORT,
-                    route,
-                    null,
-                    null
-            );
-            return uri.toASCIIString();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return generateRoute((String)null);
     }
 }

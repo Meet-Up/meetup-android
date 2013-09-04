@@ -10,7 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
 import com.tuvistavie.meetup.R;
-import com.tuvistavie.meetup.contacts.model.Contact;
+import com.tuvistavie.meetup.contact.model.Contact;
 import com.tuvistavie.meetup.event.fragment.TimeLineFragment;
 
 import java.util.ArrayList;

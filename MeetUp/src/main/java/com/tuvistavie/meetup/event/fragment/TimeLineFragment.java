@@ -38,7 +38,7 @@ public class TimeLineFragment extends RoboFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "onViewCreated called");
-        adapter.setTimeLine(timeLine);
+        adapter.setCollection(timeLine);
         listView.setAdapter(adapter);
         new LoadTimeLineTask().execute();
     }

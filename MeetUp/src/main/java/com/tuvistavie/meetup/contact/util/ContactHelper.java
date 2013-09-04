@@ -1,12 +1,11 @@
-package com.tuvistavie.meetup.contacts.util;
+package com.tuvistavie.meetup.contact.util;
 
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-import android.util.Log;
 
-import com.tuvistavie.meetup.contacts.model.Contact;
+import com.tuvistavie.meetup.contact.model.Contact;
 
 import java.util.ArrayList;
 import java.util.List;
