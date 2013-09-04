@@ -37,9 +37,7 @@ public class Contact extends AbstractEntity {
         }
     }
 
-    public static List<Contact> loadFromPhonebook() {
-        return ContactHelper.getContactList(App.getContext());
-    }
+
 
     @Override
     public JSONObject toJSON() {

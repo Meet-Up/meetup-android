@@ -1,8 +1,9 @@
 package com.tuvistavie.meetup.contact.util;
 
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.contact.model.Contact;
 import com.tuvistavie.meetup.util.CollectionAdapter;
 
@@ -12,7 +13,12 @@ import com.tuvistavie.meetup.util.CollectionAdapter;
 public class ContactListAdapter extends CollectionAdapter<Contact> {
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+    protected void updateView(View view, Contact model) {
+        ((TextView)view.findViewById(R.id.contact_name_text)).setText(model.getDisplayName());
+    }
+
+    @Override
+    protected int getRowResId() {
+        return R.layout.contact_row;
     }
 }

@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
 import com.tuvistavie.meetup.R;
+import com.tuvistavie.meetup.contact.fragment.ContactListFragment;
 import com.tuvistavie.meetup.contact.model.Contact;
 import com.tuvistavie.meetup.event.fragment.TimeLineFragment;
 
@@ -53,8 +54,6 @@ public class TimeLineActivity extends RoboFragmentActivity implements ActionBar.
                             .setText(sectionsPager.getPageTitle(i))
                             .setTabListener(this));
         }
-
-        List<Contact> contacts = Contact.loadFromPhonebook();
     }
 
     @Override
@@ -84,6 +83,7 @@ public class TimeLineActivity extends RoboFragmentActivity implements ActionBar.
             super(fm);
             fragments = new ArrayList<Fragment>();
             fragments.add(new TimeLineFragment());
+            fragments.add(new ContactListFragment());
         }
 
         @Override

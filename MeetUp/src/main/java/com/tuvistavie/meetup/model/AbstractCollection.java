@@ -13,13 +13,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by daniel on 9/1/13.
  */
 public abstract class AbstractCollection<T extends Entity> implements Collection {
 
-    protected ArrayList<T> entities;
+    protected List<T> entities;
     protected int minFetchTimeDiff;
     private Date lastFetch;
 
@@ -102,8 +103,19 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
         return null;
     }
 
-    public ArrayList<T> getEntities() {
+    public List<T> getEntities() {
         return entities;
+    }
+
+    protected void setEntities(List<T> entities) {
+        this.setEntities(entities, true);
+    }
+
+    protected void setEntities(List<T> entities, boolean notify) {
+        this.entities = entities;
+        if(notify) {
+            runOnUpdate();
+        }
     }
 
     protected boolean needsAuthentication() {

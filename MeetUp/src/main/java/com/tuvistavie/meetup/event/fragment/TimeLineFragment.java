@@ -1,7 +1,6 @@
 package com.tuvistavie.meetup.event.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,6 @@ public class TimeLineFragment extends RoboFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG, "onViewCreated called");
         adapter.setCollection(timeLine);
         adapter.enableAutoUpdate(getActivity());
         listView.setAdapter(adapter);

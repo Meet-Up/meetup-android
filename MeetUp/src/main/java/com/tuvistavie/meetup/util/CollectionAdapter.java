@@ -91,6 +91,17 @@ public abstract class CollectionAdapter<T> extends BaseAdapter {
         return rowView;
     }
 
+    @Override
+    public View getView(int position, View contextView, ViewGroup parent) {
+        View rowView = getBaseView(getRowResId(), contextView, parent);
+        T entity = getEntity(position);
+        updateView(rowView, entity);
+        return rowView;
+    }
+
+    protected abstract void updateView(View view, T model);
+    protected abstract int getRowResId();
+
     public void enableAutoUpdate(final Activity activity) {
         this.collection.setOnUpdateListener(new OnUpdateListener() {
             @Override

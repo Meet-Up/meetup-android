@@ -1,7 +1,6 @@
 package com.tuvistavie.meetup.event.util;
 
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tuvistavie.meetup.R;
@@ -14,14 +13,15 @@ import com.tuvistavie.meetup.util.CollectionAdapter;
 public class TimeLineAdapter extends CollectionAdapter<Event> {
 
     @Override
-    public View getView(int position, View contextView, ViewGroup parent) {
-        View rowView = getBaseView(R.layout.timeline_row, contextView, parent);
-        Event event = getEntity(position);
-        ((TextView) rowView.findViewById(R.id.event_name_text)).setText(event.getName());
-        ((TextView) rowView.findViewById(R.id.event_organizer_text)).setText(event.getCreator().getUsername());
-        ((TextView) rowView.findViewById(R.id.event_from_text)).setText(event.getStartDateString());
-        ((TextView) rowView.findViewById(R.id.event_to_text)).setText(event.getEndDateString());
+    protected void updateView(View view, Event model) {
+        ((TextView) view.findViewById(R.id.event_name_text)).setText(model.getName());
+        ((TextView) view.findViewById(R.id.event_organizer_text)).setText(model.getCreator().getUsername());
+        ((TextView) view.findViewById(R.id.event_from_text)).setText(model.getStartDateString());
+        ((TextView) view.findViewById(R.id.event_to_text)).setText(model.getEndDateString());
+    }
 
-        return rowView;
+    @Override
+    protected int getRowResId() {
+        return R.layout.timeline_row;
     }
 }

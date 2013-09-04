@@ -12,6 +12,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         App.context = getApplicationContext();
+        App.context.setTheme(R.style.AppTheme);
     }
 
     public static Context getContext() {
