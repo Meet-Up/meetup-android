@@ -2,6 +2,12 @@ package com.tuvistavie.meetup.event.model;
 
 import com.tuvistavie.meetup.event.activity.SelectTimeActivity;
 import com.tuvistavie.meetup.model.listener.OnUpdateListener;
+import com.tuvistavie.meetup.util.DateTimeUtil;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by daniel on 9/6/13.
@@ -95,5 +101,42 @@ public class TimeCellContainer {
         if(onUpdateListener != null) {
             onUpdateListener.onUpdate(null);
         }
+    }
+
+    public List<EventDate> toEventDates(long[] datesArray) {
+        List<EventDate> dates = new ArrayList<EventDate>();
+        for(int i = 0; i < datesArray.length; i++) {
+            for(EventDate eventDate: datesForDay(datesArray[i], i)) {
+                dates.add(eventDate);
+            }
+        }
+        return dates;
+    }
+
+    private List<EventDate> datesForDay(long date, int dayIndex) {
+        List<EventDate> dates = new ArrayList<EventDate>();
+        for(int i = 0; i < cells[dayIndex].length; i++) {
+            if(cells[dayIndex][i]) {
+                int j;
+                for(j = i + 1; j < cells[dayIndex].length && cells[dayIndex][j]; j++);
+                dates.add(getEventDate(date, i, j - 1));
+                i = j - 1;
+            }
+        }
+        return dates;
+    }
+
+    private EventDate getEventDate(long date, int startIndex, int endIndex) {
+        Date startDate = getDateFromIndex(date, startIndex);
+        Date endDate = getDateFromIndex(date, endIndex);
+        return new EventDate(startDate, endDate);
+    }
+
+    private Date getDateFromIndex(long date, int index) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date(date));
+        c.set(Calendar.HOUR_OF_DAY, index * 24 / rowsNumber);
+        c.set(Calendar.MINUTE, index % 2 == 0 ? 0 : 30);
+        return c.getTime();
     }
 }

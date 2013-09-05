@@ -7,7 +7,6 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
 import com.tuvistavie.meetup.R;
-import com.tuvistavie.meetup.event.model.EventDate;
 import com.tuvistavie.meetup.event.model.TimeCellContainer;
 import com.tuvistavie.meetup.event.util.ChooseTimeTouchListener;
 import com.tuvistavie.meetup.event.util.adapter.SelectTimeAdapter;
@@ -16,7 +15,7 @@ import com.tuvistavie.meetup.view.ExpandableGridView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Date;
 
 public class SelectTimeActivity extends Activity {
     public static final int REQUEST_CODE = 21;
@@ -24,25 +23,22 @@ public class SelectTimeActivity extends Activity {
     public static final int CELLS_PER_DAY = 48;
     public static final int DAYS_PER_PAGE = 4;
 
-    private List<EventDate> dates;
     private ExpandableGridView timeCellsGridView;
     private SelectTimeAdapter timeCellsAdapter;
     private ArrayAdapter<String> datesAdapter;
     private GridView datesGridView;
-
     private TimeCellContainer timeCellContainer;
+
+    private long[] datesArray;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_time);
-        dates = new ArrayList<EventDate>();
-        long[] datesArray = getIntent().getLongArrayExtra(CreateEventActivity.DATES_EXTRA);
-        for(long timeStamp: datesArray) {
-            dates.add(new EventDate(timeStamp));
-        }
-        timeCellContainer = new TimeCellContainer(dates.size());
+        datesArray = getIntent().getLongArrayExtra(SelectDateActivity.DATES_EXTRA);
+        timeCellContainer = new TimeCellContainer(datesArray.length);
         initViews();
     }
 
@@ -61,8 +57,8 @@ public class SelectTimeActivity extends Activity {
 
     private String getTextForColumn(int column) {
         Calendar c = Calendar.getInstance();
-        c.setTime(dates.get(timeCellContainer.getColumnNumberAt(column)).getStartDateTime());
-        return c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH);
+        c.setTime(new Date(datesArray[timeCellContainer.getColumnNumberAt(column)]));
+        return (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DAY_OF_MONTH);
     }
 
     private void initTimeCellsGridView() {

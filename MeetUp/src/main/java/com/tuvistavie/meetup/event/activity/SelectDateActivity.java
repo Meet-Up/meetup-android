@@ -50,10 +50,9 @@ public class SelectDateActivity extends RoboActivity {
     }
 
     public void onSelectTimePressed(View v) {
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra(DATES_EXTRA, calendarAdapter.getDates());
-        setResult(RESULT_OK, resultIntent);
-        finish();
+        Intent intent = new Intent(this, SelectTimeActivity.class);
+        intent.putExtra(DATES_EXTRA, calendarAdapter.getDates());
+        startActivityForResult(intent, SelectTimeActivity.REQUEST_CODE);
     }
 
     private class PreviousButtonClickListener implements View.OnClickListener {

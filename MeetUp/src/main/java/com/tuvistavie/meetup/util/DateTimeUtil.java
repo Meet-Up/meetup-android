@@ -11,7 +11,8 @@ import java.util.List;
  * Created by daniel on 9/1/13.
  */
 public final class DateTimeUtil {
-    public static final int milliSecondsInDay = 1000 * 3600 * 24;
+    public static final int MS_IN_HOUR = 1000 * 3600;
+    public static final int MS_IN_DAY = 1000 * 3600 * 24;
 
     public static Date getDate(int year, int month, int day, int hour, int time) {
         Calendar c = Calendar.getInstance();
@@ -77,7 +78,7 @@ public final class DateTimeUtil {
         long start = DateTimeUtil.getFirstDateToShow(date, firstDayOfWeek).getTime();
         long end = DateTimeUtil.getLastDateToShow(date, firstDayOfWeek).getTime();
         List<DateCell> dates = new ArrayList<DateCell>();
-        for(long current = start; current <= end; current += milliSecondsInDay) {
+        for(long current = start; current <= end; current += MS_IN_DAY) {
             dates.add(new DateCell(current));
         }
         return dates;

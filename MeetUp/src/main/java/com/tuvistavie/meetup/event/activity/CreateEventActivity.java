@@ -45,17 +45,11 @@ public class CreateEventActivity extends RoboActivity {
         if(resultCode == RESULT_OK) {
             if(requestCode == SelectDateActivity.REQUEST_CODE) {
                 handleSelectDateReturn(data);
-            } else if(requestCode == SelectDateActivity.REQUEST_CODE) {
-                handleSelectTimeReturn(data);
             }
         }
     }
 
     private void handleSelectDateReturn(Intent data) {
-        long[] dates = data.getLongArrayExtra(SelectDateActivity.DATES_EXTRA);
-        Intent intent = new Intent(this, SelectTimeActivity.class);
-        intent.putExtra(DATES_EXTRA, dates);
-        startActivityForResult(intent, SelectTimeActivity.REQUEST_CODE);
     }
 
     private void handleSelectTimeReturn(Intent data) {
