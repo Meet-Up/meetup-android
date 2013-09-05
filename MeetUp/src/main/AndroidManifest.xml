@@ -14,7 +14,6 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <activity
             android:name="com.tuvistavie.meetup.MainActivity"
             android:label="@string/app_name" >
@@ -35,8 +34,12 @@
             android:label="@string/title_activity_create_event" >
         </activity>
         <activity
-            android:name=".event.activity.TimeLineActivity"
+            android:name="com.tuvistavie.meetup.event.activity.TimeLineActivity"
             android:label="@string/title_activity_timeline" >
+        </activity>
+        <activity
+            android:name=".event.activity.SelectDateActivity"
+            android:label="@string/title_activity_select_date" >
         </activity>
     </application>
 

@@ -50,6 +50,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/adjust_time"
+            android:id="@+id/adjust_date_button"
+            android:layout_gravity="right|center_vertical"
+            android:onClick="onAdjustTimePressed" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/confirm_btn"
             android:layout_gravity="center_horizontal"
             android:id="@+id/confirm_button"

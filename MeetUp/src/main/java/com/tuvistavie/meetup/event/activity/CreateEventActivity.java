@@ -1,5 +1,6 @@
 package com.tuvistavie.meetup.event.activity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,8 +13,8 @@ import com.tuvistavie.meetup.event.model.EventDate;
 
 import java.util.Date;
 
-import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
+import roboguice.activity.RoboActivity;
 
 public class CreateEventActivity extends RoboActivity {
 
@@ -23,6 +24,11 @@ public class CreateEventActivity extends RoboActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+    }
+
+    public void onAdjustTimePressed(View v) {
+        Intent intent = new Intent(this, SelectDateActivity.class);
+        startActivityForResult(intent, SelectDateActivity.REQUEST_CODE);
     }
 
     public void onConfirmPressed(View v) {
