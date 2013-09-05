@@ -10,8 +10,8 @@
     <string name="title_section3">Section 3</string>
     <string name="title_activity_create_event">Create event</string>
     <string name="title_activity_select_date">SelectDate</string>
-
     <string name="back_btn">戻る</string>
     <string name="save_btn">保存</string>
+    <string name="title_activity_select_time">SelectTimeActivity</string>
 
 </resources>

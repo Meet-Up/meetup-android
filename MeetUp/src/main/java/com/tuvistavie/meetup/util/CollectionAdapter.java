@@ -105,7 +105,7 @@ public abstract class CollectionAdapter<T> extends BaseAdapter {
     public void enableAutoUpdate(final Activity activity) {
         this.collection.setOnUpdateListener(new OnUpdateListener() {
             @Override
-            public void onUpdate(AbstractCollection collection) {
+            public void onUpdate(Object udpatedObject) {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

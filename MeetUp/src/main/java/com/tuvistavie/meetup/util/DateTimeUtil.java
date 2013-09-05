@@ -102,4 +102,10 @@ public final class DateTimeUtil {
         return c.get(Calendar.YEAR) + "年" + (c.get(Calendar.MONTH) + 1) + "日";
     }
 
+    public static String formatTime(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        return String.format("%02d:%02d", c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE));
+    }
+
 }

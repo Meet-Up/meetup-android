@@ -75,7 +75,7 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
     private void runOnFetch() {
         runOnUpdate();
         if(onFetchListener != null) {
-            onFetchListener.onFetch(this);
+            onFetchListener.onFetch(null);
         }
     }
 

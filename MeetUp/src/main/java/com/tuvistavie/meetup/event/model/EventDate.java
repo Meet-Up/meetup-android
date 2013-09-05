@@ -14,6 +14,10 @@ public class EventDate extends AbstractEntity {
     private Date startDateTime;
     private Date endDateTime;
 
+    public EventDate(long timeStamp) {
+        this(new Date(timeStamp));
+    }
+
     public EventDate(Date startDate) {
         this(startDate, new Date(startDate.getTime() + 3600));
     }

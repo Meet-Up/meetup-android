@@ -19,6 +19,8 @@ import roboguice.activity.RoboActivity;
 
 public class CreateEventActivity extends RoboActivity {
 
+    public static final String DATES_EXTRA = "CreateEventActivity.dates_extra";
+
     @InjectView(R.id.event_name_text) EditText nameText;
 
     @Override
@@ -42,9 +44,22 @@ public class CreateEventActivity extends RoboActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK) {
             if(requestCode == SelectDateActivity.REQUEST_CODE) {
-                long[] dates = data.getLongArrayExtra(SelectDateActivity.DATES_EXTRA);
+                handleSelectDateReturn(data);
+            } else if(requestCode == SelectDateActivity.REQUEST_CODE) {
+                handleSelectTimeReturn(data);
             }
         }
+    }
+
+    private void handleSelectDateReturn(Intent data) {
+        long[] dates = data.getLongArrayExtra(SelectDateActivity.DATES_EXTRA);
+        Intent intent = new Intent(this, SelectTimeActivity.class);
+        intent.putExtra(DATES_EXTRA, dates);
+        startActivityForResult(intent, SelectTimeActivity.REQUEST_CODE);
+    }
+
+    private void handleSelectTimeReturn(Intent data) {
+
     }
 
     @Override

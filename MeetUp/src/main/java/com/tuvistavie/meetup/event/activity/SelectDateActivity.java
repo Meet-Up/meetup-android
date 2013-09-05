@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.tuvistavie.meetup.R;
-import com.tuvistavie.meetup.event.util.CalendarAdapter;
+import com.tuvistavie.meetup.event.util.adapter.CalendarAdapter;
 import com.tuvistavie.meetup.util.DateTimeUtil;
 
 import roboguice.activity.RoboActivity;

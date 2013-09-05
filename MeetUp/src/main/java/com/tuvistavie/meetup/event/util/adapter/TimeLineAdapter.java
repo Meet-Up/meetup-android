@@ -1,4 +1,4 @@
-package com.tuvistavie.meetup.event.util;
+package com.tuvistavie.meetup.event.util.adapter;
 
 import android.view.View;
 import android.widget.TextView;

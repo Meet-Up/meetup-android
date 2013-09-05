@@ -38,8 +38,12 @@
             android:label="@string/title_activity_timeline" >
         </activity>
         <activity
-            android:name=".event.activity.SelectDateActivity"
+            android:name="com.tuvistavie.meetup.event.activity.SelectDateActivity"
             android:label="@string/title_activity_select_date" >
+        </activity>
+        <activity
+            android:name=".event.activity.SelectTimeActivity"
+            android:label="@string/title_activity_select_time" >
         </activity>
     </application>
 

@@ -9,7 +9,7 @@ import android.widget.ListView;
 import com.google.inject.Inject;
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.event.model.TimeLine;
-import com.tuvistavie.meetup.event.util.TimeLineAdapter;
+import com.tuvistavie.meetup.event.util.adapter.TimeLineAdapter;
 
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
