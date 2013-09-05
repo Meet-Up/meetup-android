@@ -47,13 +47,28 @@
         </LinearLayout>
 
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/adjust_time"
-            android:id="@+id/adjust_date_button"
-            android:layout_gravity="right|center_vertical"
-            android:onClick="onAdjustTimePressed" />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/adjust_time"
+                android:id="@+id/adjust_date_button"
+                android:onClick="onAdjustTimePressed"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_time"
+                android:id="@+id/button"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true" />
+
+        </RelativeLayout>
 
         <Button
             android:layout_width="wrap_content"

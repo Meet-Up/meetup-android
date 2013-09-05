@@ -14,6 +14,7 @@ import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.event.model.DateCell;
 import com.tuvistavie.meetup.util.DateTimeUtil;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -119,5 +120,21 @@ public class CalendarAdapter extends ArrayAdapter<DateCell> {
             dateCell.setSelected(!dateCell.isSelected());
             notifyDataSetChanged();
         }
+    }
+
+    public long[] getDates() {
+        ArrayList<Long> datesList = new ArrayList<Long>();
+        for(List<DateCell> cells: dateCells.values()) {
+            for(DateCell dateCell: cells) {
+                if(dateCell.isSelected()) {
+                    datesList.add(dateCell.getDate().getTime());
+                }
+            }
+        }
+        long[] dates = new long[datesList.size()];
+        for(int i = 0; i < datesList.size(); i++) {
+            dates[i] = datesList.get(i);
+        }
+        return dates;
     }
 }

@@ -3,6 +3,7 @@ package com.tuvistavie.meetup.event.activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -35,6 +36,15 @@ public class CreateEventActivity extends RoboActivity {
         String eventName = nameText.getText().toString();
         Event event = new Event(eventName, "", new EventDate(new Date()));
         new SaveEventTask().execute(event);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK) {
+            if(requestCode == SelectDateActivity.REQUEST_CODE) {
+                long[] dates = data.getLongArrayExtra(SelectDateActivity.DATES_EXTRA);
+            }
+        }
     }
 
     @Override

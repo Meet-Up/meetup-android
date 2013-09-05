@@ -1,9 +1,8 @@
 package com.tuvistavie.meetup.event.activity;
 
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.app.Activity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.GridView;
@@ -23,6 +22,7 @@ import roboguice.inject.InjectView;
 public class SelectDateActivity extends RoboActivity {
 
     public static final int REQUEST_CODE = 20;
+    public static final String DATES_EXTRA = "SelectDateActivity.dates_extra";
 
     @InjectView(R.id.calendar_grid_view) GridView calendarGridView;
     @InjectView(R.id.previous_month_button) ImageButton previousButton;
@@ -50,7 +50,9 @@ public class SelectDateActivity extends RoboActivity {
     }
 
     public void onSelectTimePressed(View v) {
-        setResult(RESULT_OK);
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(DATES_EXTRA, calendarAdapter.getDates());
+        setResult(RESULT_OK, resultIntent);
         finish();
     }
 
