@@ -8,4 +8,10 @@
     <string name="choose_time">時間を決める</string>
     <string name="timeLine">タイムライン</string>
     <string name="select_time">時間を選ぶ</string>
+
+    <plurals name="event_date_selected">
+        <item quantity="zero">日時なし</item>
+        <item quantity="other">%d日時の候補</item>
+    </plurals>
+
 </resources>

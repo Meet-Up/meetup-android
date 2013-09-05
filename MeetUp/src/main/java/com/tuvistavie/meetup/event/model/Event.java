@@ -4,6 +4,7 @@ import com.tuvistavie.meetup.model.AbstractEntity;
 import com.tuvistavie.meetup.util.DateTimeUtil;
 import com.tuvistavie.meetup.util.Routes;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,6 +60,7 @@ public class Event extends AbstractEntity {
         try {
             jsonEvent.put("name", name);
             jsonEvent.put("description", description);
+            JSONArray a = eventDateCollection.toJSONArray();
             jsonEvent.put("event_dates_attributes", eventDateCollection.toJSONArray());
             return jsonEvent;
         } catch (JSONException e) {
