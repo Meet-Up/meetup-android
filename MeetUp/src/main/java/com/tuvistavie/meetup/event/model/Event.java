@@ -92,6 +92,7 @@ public class Event extends AbstractEntity {
         if(eventDateCollection.getEntities().isEmpty()) {
             return "";
         }
+        EventDate e = eventDateCollection.getEntities().get(0);
         return DateTimeUtil.formatDate(eventDateCollection.getEntities().get(0).getStartDateTime());
     }
 

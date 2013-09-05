@@ -22,7 +22,7 @@ import java.util.Date;
 
 public class SelectTimeActivity extends Activity {
     public static final int REQUEST_CODE = 21;
-    public static final String EVENT_DATE_COLLECTION_EXTRA = "SelectTimeActivity.event_date_collection_extra";
+    public static final String DATES_EXTRA = "SelectTimeActivity.dates_extra";
 
     public static final int CELLS_PER_DAY = 48;
     public static final int DAYS_PER_PAGE = 4;
@@ -53,7 +53,7 @@ public class SelectTimeActivity extends Activity {
     public void onSavePressed(View v) {
         EventDateCollection dates = timeCellContainer.toEventDateCollection(datesArray);
         Intent intent = new Intent();
-        intent.putExtra(EVENT_DATE_COLLECTION_EXTRA, dates.toJSONArray().toString());
+        intent.putExtra(DATES_EXTRA, dates.toJSONArray().toString());
         setResult(RESULT_OK, intent);
         finish();
     }

@@ -10,11 +10,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.tuvistavie.meetup.R;
-import com.tuvistavie.meetup.event.model.EventDateCollection;
 import com.tuvistavie.meetup.event.util.adapter.CalendarAdapter;
 import com.tuvistavie.meetup.util.DateTimeUtil;
-
-import org.json.JSONArray;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
@@ -61,8 +58,11 @@ public class SelectDateActivity extends RoboActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK && requestCode == SelectTimeActivity.REQUEST_CODE) {
-            EventDateCollection eventDateCollection = new EventDateCollection();
-            eventDateCollection.fromJSON(data.getStringExtra(SelectTimeActivity.EVENT_DATE_COLLECTION_EXTRA));
+            Intent intent = new Intent();
+            String datesExtra = data.getStringExtra(SelectTimeActivity.DATES_EXTRA);
+            intent.putExtra(DATES_EXTRA, datesExtra);
+            setResult(RESULT_OK, intent);
+            finish();
         }
     }
 

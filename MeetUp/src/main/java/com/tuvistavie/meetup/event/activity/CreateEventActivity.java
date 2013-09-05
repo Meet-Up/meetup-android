@@ -20,6 +20,8 @@ import roboguice.activity.RoboActivity;
 
 public class CreateEventActivity extends RoboActivity {
 
+    private static final String TAG = "com.tuvistavie.meetup.uth.activity.CheckMailActivity";
+
     public static final String DATES_EXTRA = "CreateEventActivity.dates_extra";
 
     @InjectView(R.id.event_name_text) EditText nameText;
@@ -51,6 +53,9 @@ public class CreateEventActivity extends RoboActivity {
     }
 
     private void handleSelectDateReturn(Intent data) {
+        EventDateCollection eventDateCollection = new EventDateCollection();
+        eventDateCollection.fromJSON(data.getStringExtra(SelectDateActivity.DATES_EXTRA));
+        Log.d(TAG, "received " + eventDateCollection.getEntities().size() + " dates");
     }
 
     private void handleSelectTimeReturn(Intent data) {

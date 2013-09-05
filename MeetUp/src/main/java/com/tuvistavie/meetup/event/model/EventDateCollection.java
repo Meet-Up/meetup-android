@@ -8,7 +8,7 @@ import com.tuvistavie.meetup.model.AbstractCollection;
 public class EventDateCollection extends AbstractCollection<EventDate> {
     @Override
     protected Class<?> getEntityClass() {
-        return EventDateCollection.class;
+        return EventDate.class;
     }
 
     @Override
