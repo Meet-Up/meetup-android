@@ -11,6 +11,7 @@ import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.contact.model.ContactList;
 import com.tuvistavie.meetup.contact.util.ContactListAdapter;
 
+import roboguice.RoboGuice;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 
@@ -37,7 +38,7 @@ public class ContactListFragment extends RoboFragment {
         contactListAdapter.setCollection(contactList);
         contactListAdapter.enableAutoUpdate(getActivity());
         contactListView.setAdapter(contactListAdapter);
-        contactList.loadFromPhonebook();
+        contactList.loadFromPhoneBook();
     }
 
 }

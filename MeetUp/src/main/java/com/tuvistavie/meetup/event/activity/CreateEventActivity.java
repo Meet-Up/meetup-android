@@ -1,7 +1,6 @@
 package com.tuvistavie.meetup.event.activity;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,13 +11,10 @@ import android.widget.TextView;
 
 import com.google.inject.Inject;
 import com.tuvistavie.meetup.R;
+import com.tuvistavie.meetup.contact.activity.SelectContactsActivity;
 import com.tuvistavie.meetup.event.model.Event;
-import com.tuvistavie.meetup.event.model.EventDate;
 import com.tuvistavie.meetup.event.model.EventDateCollection;
 
-import java.util.Date;
-
-import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 import roboguice.activity.RoboActivity;
 
@@ -26,10 +22,9 @@ public class CreateEventActivity extends RoboActivity {
 
     private static final String TAG = "com.tuvistavie.meetup.uth.activity.CheckMailActivity";
 
-    public static final String DATES_EXTRA = "CreateEventActivity.dates_extra";
-
     @InjectView(R.id.event_name_text) EditText nameText;
     @InjectView(R.id.dates_number_text) TextView datesNumberText;
+    @InjectView(R.id.users_number_text) TextView usersNumberText;
     @Inject EventDateCollection eventDateCollection;
 
     @Override
@@ -37,11 +32,17 @@ public class CreateEventActivity extends RoboActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
         datesNumberText.setText(getResources().getQuantityString(R.plurals.event_date_selected, 0, 0));
+        usersNumberText.setText(getResources().getQuantityString(R.plurals.event_users_selected, 0, 0));
     }
 
     public void onAdjustTimePressed(View v) {
         Intent intent = new Intent(this, SelectDateActivity.class);
         startActivityForResult(intent, SelectDateActivity.REQUEST_CODE);
+    }
+
+    public void onSelectUsersPressed(View v) {
+        Intent intent = new Intent(this, SelectContactsActivity.class);
+        startActivityForResult(intent, SelectContactsActivity.REQUEST_CODE);
     }
 
     public void onConfirmPressed(View v) {

@@ -9,6 +9,8 @@ import com.tuvistavie.meetup.util.Routes;
  * Created by daniel on 9/4/13.
  */
 public class ContactList extends AbstractCollection<Contact> {
+    private static ContactList phoneBookContent;
+
     @Override
     protected Class<?> getEntityClass() {
         return ContactList.class;
@@ -19,8 +21,12 @@ public class ContactList extends AbstractCollection<Contact> {
         return Routes.CONTACTS.getRoute();
     }
 
-    public void loadFromPhonebook() {
-        this.setEntities(ContactHelper.getContactList(App.getContext()));
+    public void loadFromPhoneBook() {
+        if(phoneBookContent == null) {
+            phoneBookContent = new ContactList();
+            phoneBookContent.setEntities(ContactHelper.getContactList(App.getContext()));
+        }
+        this.setEntities(phoneBookContent.getEntities());
     }
 
 }

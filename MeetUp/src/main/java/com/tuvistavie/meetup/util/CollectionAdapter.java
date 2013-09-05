@@ -59,12 +59,8 @@ public abstract class CollectionAdapter<T> extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
-        return collection.getEntities().get(position);
-    }
-
-    public T getEntity(int position) {
-        return (T)getItem(position);
+    public T getItem(int position) {
+        return (T)collection.getEntities().get(position);
     }
 
     @Override
@@ -94,7 +90,7 @@ public abstract class CollectionAdapter<T> extends BaseAdapter {
     @Override
     public View getView(int position, View contextView, ViewGroup parent) {
         View rowView = getBaseView(getRowResId(), contextView, parent);
-        T entity = getEntity(position);
+        T entity = getItem(position);
         updateView(rowView, entity);
         return rowView;
     }
