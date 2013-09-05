@@ -3,6 +3,7 @@ package com.tuvistavie.meetup.event.activity;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.GridView;
@@ -42,6 +43,15 @@ public class SelectDateActivity extends RoboActivity {
         calendarGridView.setAdapter(calendarAdapter);
         calendarAdapter.registerDataSetObserver(new OnCalendarChange());
         calendarAdapter.notifyDataSetChanged();
+    }
+
+    public void onBackPressed(View v) {
+        finish();
+    }
+
+    public void onSelectTimePressed(View v) {
+        setResult(RESULT_OK);
+        finish();
     }
 
     private class PreviousButtonClickListener implements View.OnClickListener {

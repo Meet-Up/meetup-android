@@ -6,5 +6,6 @@
     <string name="event_date">日付</string>
     <string name="adjust_time">時間調整</string>
     <string name="timeLine">タイムライン</string>
+    <string name="select_time">時間を選ぶ</string>
 
 </resources>
