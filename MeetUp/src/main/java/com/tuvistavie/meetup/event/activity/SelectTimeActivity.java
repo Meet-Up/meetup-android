@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
 import com.tuvistavie.meetup.R;
-import com.tuvistavie.meetup.event.model.EventDate;
 import com.tuvistavie.meetup.event.model.EventDateCollection;
 import com.tuvistavie.meetup.event.model.TimeCellContainer;
 import com.tuvistavie.meetup.event.util.ChooseTimeTouchListener;
@@ -54,7 +53,7 @@ public class SelectTimeActivity extends Activity {
     public void onSavePressed(View v) {
         EventDateCollection dates = timeCellContainer.toEventDateCollection(datesArray);
         Intent intent = new Intent();
-        intent.putExtra(EVENT_DATE_COLLECTION_EXTRA, dates.toJSON().toString());
+        intent.putExtra(EVENT_DATE_COLLECTION_EXTRA, dates.toJSONArray().toString());
         setResult(RESULT_OK, intent);
         finish();
     }

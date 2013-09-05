@@ -40,7 +40,7 @@ public class Contact extends AbstractEntity {
 
 
     @Override
-    public JSONObject toJSON() {
+    public JSONObject toJSONObject() {
         JSONObject jsonObject = new JSONObject();
         JSONHelper<String> helper = new JSONHelper<String>();
         try {

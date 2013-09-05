@@ -7,5 +7,5 @@ import org.json.JSONObject;
  */
 public interface JSONObjectSerializable {
     public void fromJSON(JSONObject jsonObject);
-    public JSONObject toJSON();
+    public JSONObject toJSONObject();
 }

@@ -7,5 +7,5 @@ import org.json.JSONArray;
  */
 public interface JSONArraySerializable {
     public void fromJSON(JSONArray jsonArray);
-    public JSONArray toJSON();
+    public JSONArray toJSONArray();
 }

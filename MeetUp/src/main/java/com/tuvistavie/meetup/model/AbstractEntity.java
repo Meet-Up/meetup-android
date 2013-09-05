@@ -5,6 +5,7 @@ import com.tuvistavie.meetup.util.HTTPHelper;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,7 +65,7 @@ public abstract class AbstractEntity implements Entity {
     public boolean save() {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put(getEntityKey(), toJSON());
+            jsonObject.put(getEntityKey(), toJSONObject());
             if(needsAuthentication()) {
                 jsonObject.put("token", User.getInstance().getToken());
             }
@@ -104,5 +105,19 @@ public abstract class AbstractEntity implements Entity {
 
     public boolean needsAuthentication() {
         return true;
+    }
+
+    @Override
+    public void fromJSON(String json) {
+        try {
+            fromJSON(new JSONObject(json));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String toJSON() {
+        return toJSONObject().toString();
     }
 }

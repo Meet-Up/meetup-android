@@ -3,7 +3,6 @@ package com.tuvistavie.meetup.auth.model;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.WindowManager;
 
 import com.tuvistavie.meetup.App;
 import com.tuvistavie.meetup.model.AbstractEntity;
@@ -39,7 +38,7 @@ public class User extends AbstractEntity {
 
     private void saveToPrefs() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(App.getContext());
-        preferences.edit().putString("user", toJSON().toString()).commit();
+        preferences.edit().putString("user", toJSONObject().toString()).commit();
     }
 
     private static User loadUserFromPrefs() {
@@ -69,7 +68,7 @@ public class User extends AbstractEntity {
     }
 
     @Override
-    public JSONObject toJSON() {
+    public JSONObject toJSONObject() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("email", email);

@@ -25,7 +25,7 @@ public class Participant extends AbstractEntity {
     }
 
     @Override
-    public JSONObject toJSON() {
+    public JSONObject toJSONObject() {
         return null;
     }
 

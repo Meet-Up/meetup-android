@@ -42,7 +42,7 @@ public class EventDate extends AbstractEntity {
     }
 
     @Override
-    public JSONObject toJSON() {
+    public JSONObject toJSONObject() {
         JSONObject jsonDate = new JSONObject();
         try {
             jsonDate.put("start", startDateTime.getTime());

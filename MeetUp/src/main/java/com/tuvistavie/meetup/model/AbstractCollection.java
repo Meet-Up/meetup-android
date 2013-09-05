@@ -34,10 +34,10 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
     }
 
     @Override
-    public JSONArray toJSON() {
+    public JSONArray toJSONArray() {
         JSONArray jsonArray = new JSONArray();
         for(Entity e: entities) {
-            jsonArray.put(e.toJSON());
+            jsonArray.put(e.toJSONObject());
         }
 
         return  jsonArray;
@@ -54,6 +54,20 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void fromJSON(String json) {
+        try {
+            fromJSON(new JSONArray(json));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String toJSON() {
+        return toJSONArray().toString();
     }
 
     @Override

@@ -4,11 +4,8 @@ import com.tuvistavie.meetup.model.AbstractEntity;
 import com.tuvistavie.meetup.util.DateTimeUtil;
 import com.tuvistavie.meetup.util.Routes;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 /**
  * Created by daniel on 8/31/13.
@@ -57,12 +54,12 @@ public class Event extends AbstractEntity {
     }
 
     @Override
-    public JSONObject toJSON() {
+    public JSONObject toJSONObject() {
         JSONObject jsonEvent = new JSONObject();
         try {
             jsonEvent.put("name", name);
             jsonEvent.put("description", description);
-            jsonEvent.put("event_dates_attributes", eventDateCollection.toJSON());
+            jsonEvent.put("event_dates_attributes", eventDateCollection.toJSONArray());
             return jsonEvent;
         } catch (JSONException e) {
             e.printStackTrace();
