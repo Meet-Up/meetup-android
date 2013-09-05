@@ -27,11 +27,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/current_month_text"
                 android:layout_weight="5"
                 android:gravity="center" />
-            n
+
             <ImageButton
                 android:layout_width="60px"
                 android:layout_height="60px"

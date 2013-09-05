@@ -57,6 +57,7 @@ public class CalendarAdapter extends ArrayAdapter<DateCell> {
         currentDate = date;
         String key = DateTimeUtil.getMonthKey(date);
         clear();
+        // FIXME: dates added for month n+1 while showing month n won't appear when showing month n + 1
         List<DateCell> dates =  dateCells.get(key);
         if(dates == null) {
             dates = DateTimeUtil.generateDateForMonth(date, firstDayOfWeek);
@@ -73,7 +74,7 @@ public class CalendarAdapter extends ArrayAdapter<DateCell> {
         cellView.setMinimumHeight((int)(size.y * 0.5) / rows);
     }
 
-    private View initializeView(int position, View contextView, ViewGroup parent) {
+    private View initializeView(View contextView, ViewGroup parent) {
         View cellView;
         if(contextView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
@@ -90,7 +91,7 @@ public class CalendarAdapter extends ArrayAdapter<DateCell> {
     @Override
     public View getView(int position, View contextView, ViewGroup parent) {
         DateCell dateCell = getItem(position);
-        View cellView = initializeView(position, contextView, parent);
+        View cellView = initializeView(contextView, parent);
         TextView calendarTextView = (TextView)cellView.findViewById(R.id.day_text);
         int dayOfMonth = DateTimeUtil.getDayOfMonth(dateCell.getDate());
 
