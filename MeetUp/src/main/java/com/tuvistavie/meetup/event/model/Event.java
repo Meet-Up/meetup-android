@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class Event extends AbstractEntity {
     protected String name;
     protected String description;
-    protected ArrayList<EventDate> datePossibilities;
+    protected EventDateCollection eventDateCollection;
 
     protected Participant creator;
 
@@ -25,14 +25,11 @@ public class Event extends AbstractEntity {
         this.remoteUri = Routes.EVENTS.getRoute();
     }
 
-    public Event(String name, String description, EventDate... dates) {
+    public Event(String name, String description, EventDateCollection eventDateCollection) {
         this();
         this.name = name;
         this.description = description;
-        datePossibilities = new ArrayList<EventDate>();
-        for(EventDate d: dates) {
-            datePossibilities.add(d);
-        }
+        this.eventDateCollection = eventDateCollection;
     }
 
     public Event(JSONObject jsonObject) {
@@ -47,18 +44,13 @@ public class Event extends AbstractEntity {
 
     @Override
     public void fromJSON(JSONObject jsonObject) {
-        if(datePossibilities == null) {
-            datePossibilities = new ArrayList<EventDate>();
-        }
         try {
             id = jsonObject.getInt("id");
             name = jsonObject.getString("name");
             description = jsonObject.getString("description");
             creator = new Participant(jsonObject.getJSONObject("creator"));
-            JSONArray dates = jsonObject.getJSONArray("event_dates");
-            for(int i = 0; i < dates.length(); i++) {
-                datePossibilities.add(new EventDate(dates.getJSONObject(i)));
-            }
+            this.eventDateCollection = new EventDateCollection();
+            eventDateCollection.fromJSON(jsonObject.getJSONArray("event_dates"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -67,14 +59,10 @@ public class Event extends AbstractEntity {
     @Override
     public JSONObject toJSON() {
         JSONObject jsonEvent = new JSONObject();
-        JSONArray jsonDates = new JSONArray();
         try {
             jsonEvent.put("name", name);
             jsonEvent.put("description", description);
-            for(EventDate date : datePossibilities) {
-                jsonDates.put(date.toJSON());
-            }
-            jsonEvent.put("event_dates_attributes", jsonDates);
+            jsonEvent.put("event_dates_attributes", eventDateCollection.toJSON());
             return jsonEvent;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -98,29 +86,22 @@ public class Event extends AbstractEntity {
         this.description = description;
     }
 
-    public ArrayList<EventDate> getDatePossibilities() {
-        return datePossibilities;
-    }
-
-    public void setDatePossibilities(ArrayList<EventDate> datePossibilities) {
-        this.datePossibilities = datePossibilities;
-    }
 
     public Participant getCreator() {
         return creator;
     }
 
     public String getStartDateString() {
-        if(datePossibilities.isEmpty()) {
+        if(eventDateCollection.getEntities().isEmpty()) {
             return "";
         }
-        return DateTimeUtil.formatDate(datePossibilities.get(0).getStartDateTime());
+        return DateTimeUtil.formatDate(eventDateCollection.getEntities().get(0).getStartDateTime());
     }
 
     public String getEndDateString() {
-        if(datePossibilities.isEmpty()) {
+        if(eventDateCollection.getEntities().isEmpty()) {
             return "";
         }
-        return DateTimeUtil.formatDate(datePossibilities.get(0).getEndDateTime());
+        return DateTimeUtil.formatDate(eventDateCollection.getEntities().get(0).getEndDateTime());
     }
 }

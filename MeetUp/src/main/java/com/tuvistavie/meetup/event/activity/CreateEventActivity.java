@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.event.model.Event;
 import com.tuvistavie.meetup.event.model.EventDate;
+import com.tuvistavie.meetup.event.model.EventDateCollection;
 
 import java.util.Date;
 
@@ -36,7 +37,7 @@ public class CreateEventActivity extends RoboActivity {
 
     public void onConfirmPressed(View v) {
         String eventName = nameText.getText().toString();
-        Event event = new Event(eventName, "", new EventDate(new Date()));
+        Event event = new Event(eventName, "", new EventDateCollection());
         new SaveEventTask().execute(event);
     }
 

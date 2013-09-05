@@ -103,14 +103,14 @@ public class TimeCellContainer {
         }
     }
 
-    public List<EventDate> toEventDates(long[] datesArray) {
-        List<EventDate> dates = new ArrayList<EventDate>();
+    public EventDateCollection toEventDateCollection(long[] datesArray) {
+        EventDateCollection eventDateCollection = new EventDateCollection();
         for(int i = 0; i < datesArray.length; i++) {
             for(EventDate eventDate: datesForDay(datesArray[i], i)) {
-                dates.add(eventDate);
+                eventDateCollection.getEntities().add(eventDate);
             }
         }
-        return dates;
+        return eventDateCollection;
     }
 
     private List<EventDate> datesForDay(long date, int dayIndex) {

@@ -1,12 +1,16 @@
 package com.tuvistavie.meetup.event.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
 import com.tuvistavie.meetup.R;
+import com.tuvistavie.meetup.event.model.EventDate;
+import com.tuvistavie.meetup.event.model.EventDateCollection;
 import com.tuvistavie.meetup.event.model.TimeCellContainer;
 import com.tuvistavie.meetup.event.util.ChooseTimeTouchListener;
 import com.tuvistavie.meetup.event.util.adapter.SelectTimeAdapter;
@@ -19,6 +23,7 @@ import java.util.Date;
 
 public class SelectTimeActivity extends Activity {
     public static final int REQUEST_CODE = 21;
+    public static final String EVENT_DATE_COLLECTION_EXTRA = "SelectTimeActivity.event_date_collection_extra";
 
     public static final int CELLS_PER_DAY = 48;
     public static final int DAYS_PER_PAGE = 4;
@@ -30,8 +35,6 @@ public class SelectTimeActivity extends Activity {
     private TimeCellContainer timeCellContainer;
 
     private long[] datesArray;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,14 @@ public class SelectTimeActivity extends Activity {
         initTimeCellsGridView();
         initDatesGrid();
         initTimesView();
+    }
+
+    public void onSavePressed(View v) {
+        EventDateCollection dates = timeCellContainer.toEventDateCollection(datesArray);
+        Intent intent = new Intent();
+        intent.putExtra(EVENT_DATE_COLLECTION_EXTRA, dates.toJSON().toString());
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     private void initTimesView() {
