@@ -34,8 +34,8 @@ public class EventDate extends AbstractEntity {
     @Override
     public void fromJSON(JSONObject jsonObject) {
         try {
-            startDateTime = new Date(jsonObject.getLong("start"));
-            endDateTime = new Date(jsonObject.getLong("end"));
+            startDateTime = new Date(jsonObject.getLong("start") * 1000);
+            endDateTime = new Date(jsonObject.getLong("end") * 1000);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -45,8 +45,8 @@ public class EventDate extends AbstractEntity {
     public JSONObject toJSONObject() {
         JSONObject jsonDate = new JSONObject();
         try {
-            jsonDate.put("start", startDateTime.getTime());
-            jsonDate.put("end", endDateTime.getTime());
+            jsonDate.put("start", (int)Math.ceil(startDateTime.getTime() / 1000.0));
+            jsonDate.put("end", (int)Math.ceil(endDateTime.getTime() / 1000.0));
             return jsonDate;
         } catch (JSONException e) {
             e.printStackTrace();

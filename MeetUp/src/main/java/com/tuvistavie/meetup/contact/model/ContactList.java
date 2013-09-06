@@ -27,9 +27,6 @@ public class ContactList extends AbstractCollection<Contact> {
             phoneBookContent.setEntities(ContactHelper.getContactList(App.getContext()));
         }
         this.setEntities(phoneBookContent.getEntities());
-        for(Contact contact: getEntities()) {
-            contact.setSelected(false);
-        }
     }
 
 }

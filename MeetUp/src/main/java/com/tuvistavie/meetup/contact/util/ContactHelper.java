@@ -8,6 +8,7 @@ import android.provider.ContactsContract;
 import com.tuvistavie.meetup.contact.model.Contact;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,6 +31,7 @@ public final class ContactHelper {
         }
         cursor.close();
 
+        Collections.reverse(contactList);
         return contactList;
     }
 

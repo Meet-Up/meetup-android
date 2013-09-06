@@ -45,6 +45,7 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
 
     @Override
     public void fromJSON(JSONArray jsonArray) {
+        entities.clear();
         for(int i = 0; i < jsonArray.length(); i++) {
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
