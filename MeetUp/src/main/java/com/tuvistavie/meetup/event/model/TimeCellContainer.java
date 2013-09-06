@@ -40,7 +40,7 @@ public class TimeCellContainer {
     }
 
     public int getColumn(int position) {
-        return (position % daysPerPage) + (currentPage * daysPerPage);
+        return (position % getDisplayedColumnsNumber()) + (currentPage * daysPerPage);
     }
 
     public int getRow(int position) {
@@ -56,7 +56,9 @@ public class TimeCellContainer {
     }
 
     public boolean getAt(int position) {
-        return getAt(getColumn(position), getRow(position));
+        int x = getColumn(position);
+        int y = getRow(position);
+        return getAt(x, y);
     }
 
     public void setAt(int x, int y, boolean b) {

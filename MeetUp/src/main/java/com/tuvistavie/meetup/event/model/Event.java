@@ -70,7 +70,7 @@ public class Event extends AbstractEntity {
             JSONArray users = new JSONArray();
             for(Contact contact: participants.getEntities()) {
                 List<String> emails = contact.getEmails();
-                if(emails.isEmpty()) {
+                if(!emails.isEmpty()) {
                     users.put(emails.get(0));
                 }
             }
