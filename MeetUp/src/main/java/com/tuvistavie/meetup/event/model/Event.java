@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -50,12 +51,14 @@ public class Event extends AbstractEntity {
     public void fromJSON(JSONObject jsonObject) {
         try {
             id = jsonObject.getInt("id");
-            name = jsonObject.getString("name");
-            description = jsonObject.getString("description");
+            name = new String(jsonObject.getString("name").getBytes("ISO-8859-1"), "UTF-8");
+            description = new String(jsonObject.getString("description").getBytes("ISO-8859-1"), "UTF-8");
             creator = new Participant(jsonObject.getJSONObject("creator"));
             this.eventDateCollection = new EventDateCollection();
             eventDateCollection.fromJSON(jsonObject.getJSONArray("event_dates"));
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
