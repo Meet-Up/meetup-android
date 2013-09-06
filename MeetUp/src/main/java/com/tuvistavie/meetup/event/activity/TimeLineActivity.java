@@ -9,10 +9,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
+import com.google.inject.Inject;
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.contact.fragment.ContactListFragment;
 import com.tuvistavie.meetup.contact.model.Contact;
 import com.tuvistavie.meetup.event.fragment.TimeLineFragment;
+import com.tuvistavie.meetup.event.model.TimeLine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,8 @@ public class TimeLineActivity extends RoboFragmentActivity implements ActionBar.
     @InjectResource(R.string.timeLine) String timeLineString;
     @InjectResource(R.string.friend_list) String friendListString;
     @InjectView(R.id.pager) ViewPager viewPager;
+
+    @Inject TimeLine timeLine;
 
     private SectionsPagerAdapter sectionsPager;
 
@@ -61,6 +65,13 @@ public class TimeLineActivity extends RoboFragmentActivity implements ActionBar.
         getMenuInflater().inflate(R.menu.timeline, menu);
         return true;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        timeLine.fetchInBackground();
+    }
+
     
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -82,7 +93,7 @@ public class TimeLineActivity extends RoboFragmentActivity implements ActionBar.
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
             fragments = new ArrayList<Fragment>();
-            fragments.add(new TimeLineFragment());
+            fragments.add(new TimeLineFragment(timeLine));
             fragments.add(new ContactListFragment());
         }
 

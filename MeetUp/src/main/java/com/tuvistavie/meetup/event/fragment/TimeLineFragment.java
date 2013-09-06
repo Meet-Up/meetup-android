@@ -22,7 +22,11 @@ public class TimeLineFragment extends RoboFragment {
 
     @InjectView(R.id.time_list_view) ListView listView;
     @Inject TimeLineAdapter adapter;
-    @Inject TimeLine timeLine;
+    TimeLine timeLine;
+
+    public TimeLineFragment(TimeLine timeLine) {
+        this.timeLine = timeLine;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
