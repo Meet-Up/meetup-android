@@ -10,6 +10,7 @@ import com.google.inject.Inject;
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.contact.model.ContactList;
 import com.tuvistavie.meetup.contact.util.ContactListAdapter;
+import com.tuvistavie.meetup.contact.util.SelectContactListAdapter;
 
 import roboguice.RoboGuice;
 import roboguice.fragment.RoboFragment;
@@ -22,7 +23,7 @@ public class ContactListFragment extends RoboFragment {
     private static final String TAG = "com.tuvistavie.meetup.contacts.fragment.ContactListFragment";
 
     @Inject ContactList contactList;
-    @Inject ContactListAdapter contactListAdapter;
+    @Inject SelectContactListAdapter contactListAdapter;
     @InjectView(R.id.contact_list_view) ListView contactListView;
 
     @Override
@@ -41,4 +42,7 @@ public class ContactListFragment extends RoboFragment {
         contactList.loadFromPhoneBook();
     }
 
+    public ContactList getSelectedContacts() {
+        return contactListAdapter.getSelected();
+    }
 }

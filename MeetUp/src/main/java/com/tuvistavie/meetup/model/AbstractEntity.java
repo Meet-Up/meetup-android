@@ -16,16 +16,19 @@ import org.json.JSONObject;
 public abstract class AbstractEntity implements Entity {
     protected String remoteUri;
     protected int id = -1;
+    private boolean selected;
 
     protected HttpClient httpClient;
 
     public AbstractEntity(int id) {
         this.id = id;
         this.httpClient = new DefaultHttpClient();
+        this.selected = false;
     }
 
     public AbstractEntity(JSONObject jsonObject) {
         fromJSON(jsonObject);
+        this.selected = false;
     }
 
     public AbstractEntity() {
@@ -119,5 +122,13 @@ public abstract class AbstractEntity implements Entity {
     @Override
     public String toJSON() {
         return toJSONObject().toString();
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

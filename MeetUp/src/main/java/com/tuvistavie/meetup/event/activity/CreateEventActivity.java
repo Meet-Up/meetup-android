@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.google.inject.Inject;
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.contact.activity.SelectContactsActivity;
+import com.tuvistavie.meetup.contact.model.ContactList;
 import com.tuvistavie.meetup.event.model.Event;
 import com.tuvistavie.meetup.event.model.EventDateCollection;
 
@@ -23,9 +24,11 @@ public class CreateEventActivity extends RoboActivity {
     private static final String TAG = "com.tuvistavie.meetup.uth.activity.CheckMailActivity";
 
     @InjectView(R.id.event_name_text) EditText nameText;
+    @InjectView(R.id.event_description_text) EditText descriptionText;
     @InjectView(R.id.dates_number_text) TextView datesNumberText;
     @InjectView(R.id.users_number_text) TextView usersNumberText;
     @Inject EventDateCollection eventDateCollection;
+    @Inject ContactList contactList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,8 @@ public class CreateEventActivity extends RoboActivity {
 
     public void onConfirmPressed(View v) {
         String eventName = nameText.getText().toString();
-        Event event = new Event(eventName, "", eventDateCollection);
+        String description = descriptionText.getText().toString();
+        Event event = new Event(eventName, description, eventDateCollection, contactList);
         new SaveEventTask().execute(event);
     }
 
@@ -56,8 +60,16 @@ public class CreateEventActivity extends RoboActivity {
         if(resultCode == RESULT_OK) {
             if(requestCode == SelectDateActivity.REQUEST_CODE) {
                 handleSelectDateReturn(data);
+            } else if(requestCode == SelectContactsActivity.REQUEST_CODE) {
+                handleSelectContactsReturn(data);
             }
         }
+    }
+
+    private void handleSelectContactsReturn(Intent data) {
+        contactList.fromJSON(data.getStringExtra(SelectContactsActivity.CONTACTS_EXTRA));
+        int count = contactList.getEntities().size();
+        usersNumberText.setText(getResources().getQuantityString(R.plurals.event_users_selected, count, count));
     }
 
     private void handleSelectDateReturn(Intent data) {

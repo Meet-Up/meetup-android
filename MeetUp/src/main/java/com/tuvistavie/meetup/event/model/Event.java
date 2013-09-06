@@ -1,5 +1,7 @@
 package com.tuvistavie.meetup.event.model;
 
+import com.tuvistavie.meetup.contact.model.Contact;
+import com.tuvistavie.meetup.contact.model.ContactList;
 import com.tuvistavie.meetup.model.AbstractEntity;
 import com.tuvistavie.meetup.util.DateTimeUtil;
 import com.tuvistavie.meetup.util.Routes;
@@ -8,6 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 /**
  * Created by daniel on 8/31/13.
  */
@@ -15,6 +19,7 @@ public class Event extends AbstractEntity {
     protected String name;
     protected String description;
     protected EventDateCollection eventDateCollection;
+    protected ContactList participants;
 
     protected Participant creator;
 
@@ -23,11 +28,12 @@ public class Event extends AbstractEntity {
         this.remoteUri = Routes.EVENTS.getRoute();
     }
 
-    public Event(String name, String description, EventDateCollection eventDateCollection) {
+    public Event(String name, String description, EventDateCollection eventDateCollection, ContactList participants) {
         this();
         this.name = name;
         this.description = description;
         this.eventDateCollection = eventDateCollection;
+        this.participants = participants;
     }
 
     public Event(JSONObject jsonObject) {
@@ -60,8 +66,15 @@ public class Event extends AbstractEntity {
         try {
             jsonEvent.put("name", name);
             jsonEvent.put("description", description);
-            JSONArray a = eventDateCollection.toJSONArray();
             jsonEvent.put("event_dates_attributes", eventDateCollection.toJSONArray());
+            JSONArray users = new JSONArray();
+            for(Contact contact: participants.getEntities()) {
+                List<String> emails = contact.getEmails();
+                if(emails.isEmpty()) {
+                    users.put(emails.get(0));
+                }
+            }
+            jsonEvent.put("users", users);
             return jsonEvent;
         } catch (JSONException e) {
             e.printStackTrace();

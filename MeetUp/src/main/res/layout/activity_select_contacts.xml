@@ -15,7 +15,8 @@
         android:text="@string/save_btn"
         android:id="@+id/button"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="right" />
+        android:layout_gravity="right"
+        android:onClick="onSavePressed" />
 
     <fragment class="com.tuvistavie.meetup.contact.fragment.ContactListFragment"
         android:id="@+id/contact_list_fragment"
