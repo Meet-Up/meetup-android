@@ -5,6 +5,6 @@ package com.tuvistavie.meetup;
  */
 public final class Config {
     public static final String PROTOCOL = "http";
-    public static final String HOST = "www16179ui.sakura.ne.jp";
-    public static final int PORT = 80;
+    public static final String HOST = "192.168.100.105";
+    public static final int PORT = 3000;
 }
