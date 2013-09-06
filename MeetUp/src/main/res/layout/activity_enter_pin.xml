@@ -6,7 +6,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/enter_pin"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
@@ -38,7 +37,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/pin_error_view"
         android:layout_below="@+id/pin_edit"
         android:layout_alignLeft="@+id/textView"
