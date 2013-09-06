@@ -25,6 +25,10 @@ public class Contact extends AbstractEntity {
         this.phoneNumbers = phoneNumbers;
     }
 
+    public Contact(JSONObject jsonObject) {
+        fromJSON(jsonObject);
+    }
+
     @Override
     public void fromJSON(JSONObject jsonObject) {
         JSONHelper<String> helper = new JSONHelper<String>();
@@ -36,8 +40,6 @@ public class Contact extends AbstractEntity {
 
         }
     }
-
-
 
     @Override
     public JSONObject toJSONObject() {

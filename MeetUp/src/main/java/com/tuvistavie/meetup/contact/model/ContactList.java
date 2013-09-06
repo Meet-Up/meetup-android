@@ -13,7 +13,7 @@ public class ContactList extends AbstractCollection<Contact> {
 
     @Override
     protected Class<?> getEntityClass() {
-        return ContactList.class;
+        return Contact.class;
     }
 
     @Override
