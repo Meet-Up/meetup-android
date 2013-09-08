@@ -11,6 +11,7 @@ import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.contact.model.ContactList;
 import com.tuvistavie.meetup.contact.util.ContactListAdapter;
 import com.tuvistavie.meetup.contact.util.SelectContactListAdapter;
+import com.tuvistavie.meetup.model.listener.OnUpdateListener;
 
 import roboguice.RoboGuice;
 import roboguice.fragment.RoboFragment;
@@ -40,6 +41,17 @@ public class ContactListFragment extends RoboFragment {
         contactListAdapter.enableAutoUpdate(getActivity());
         contactListView.setAdapter(contactListAdapter);
         contactList.loadFromPhoneBook();
+        contactList.setOnUpdateListener(new OnUpdateListener() {
+            @Override
+            public void onUpdate(Object updatedObject) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        contactListAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
     }
 
     public ContactList getSelectedContacts() {

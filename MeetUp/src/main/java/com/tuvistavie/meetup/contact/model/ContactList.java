@@ -68,6 +68,7 @@ public class ContactList extends AbstractCollection<Contact> {
         protected void onPostExecute(List<Contact> contacts) {
             phoneBookContent.setEntities(contacts);
             setEntities(contacts);
+            runOnUpdate();
             loaded = true;
         }
     }

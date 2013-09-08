@@ -104,14 +104,14 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
         }
     }
 
-    private void runOnFetch() {
+    protected void runOnFetch() {
         runOnUpdate();
         if(onFetchListener != null) {
             onFetchListener.onFetch(this);
         }
     }
 
-    private void runOnUpdate() {
+    protected void runOnUpdate() {
         if(onUpdateListener != null) {
             onUpdateListener.onUpdate(this);
         }
