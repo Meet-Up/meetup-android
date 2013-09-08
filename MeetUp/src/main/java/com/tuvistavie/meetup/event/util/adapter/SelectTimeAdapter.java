@@ -26,7 +26,7 @@ public class SelectTimeAdapter extends BaseAdapter {
         this.timeCellContainer = timeCellContainer;
         timeCellContainer.setOnUpdateListener(new OnUpdateListener() {
             @Override
-            public void onUpdate(Object udpatedObject) {
+            public void onUpdate(Object updatedObject) {
                 notifyDataSetChanged();
             }
         });

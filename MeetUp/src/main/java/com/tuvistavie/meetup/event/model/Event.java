@@ -27,6 +27,7 @@ public class Event extends AbstractEntity {
     public Event() {
         super();
         this.remoteUri = Routes.EVENTS.getRoute();
+        this.participants = new ContactList();
     }
 
     public Event(String name, String description, EventDateCollection eventDateCollection, ContactList participants) {

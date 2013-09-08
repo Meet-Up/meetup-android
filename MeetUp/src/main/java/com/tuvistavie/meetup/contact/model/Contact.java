@@ -17,12 +17,18 @@ public class Contact extends AbstractEntity {
 
     protected String displayName;
     protected List<String> emails;
+    protected String mainEmail;
     protected List<String> phoneNumbers;
 
     public Contact(String displayName, List<String> emails, List<String> phoneNumbers) {
         this.displayName = displayName;
         this.emails = emails;
         this.phoneNumbers = phoneNumbers;
+        if(emails.isEmpty()) {
+            this.mainEmail = "";
+        } else {
+            this.mainEmail = emails.get(0);
+        }
     }
 
     public Contact(JSONObject jsonObject) {
@@ -33,12 +39,28 @@ public class Contact extends AbstractEntity {
     public void fromJSON(JSONObject jsonObject) {
         JSONHelper<String> helper = new JSONHelper<String>();
         try {
-            this.displayName = jsonObject.getString("display_name");
-            this.phoneNumbers = helper.jsonArrayToList(jsonObject.getJSONArray("phone_numbers"));
-            this.emails = helper.jsonArrayToList(jsonObject.getJSONArray("emails"));
+            //this.displayName = jsonObject.getString("display_name");
+            //this.phoneNumbers = helper.jsonArrayToList(jsonObject.getJSONArray("phone_numbers"));
+            //this.emails = helper.jsonArrayToList(jsonObject.getJSONArray("emails"));
+            this.mainEmail = jsonObject.getString("email");
         } catch (JSONException e) {
 
         }
+        this.setDisplayNameFromEmail();
+    }
+
+    private void setDisplayNameFromEmail() {
+        ContactList phoneBook = new ContactList();
+        phoneBook.loadFromPhoneBook();
+        for(Contact contact: phoneBook.getEntities()) {
+            for(String email: contact.emails) {
+                if(email.equals(mainEmail)) {
+                    this.displayName = contact.getDisplayName();
+                    return;
+                }
+            }
+        }
+        this.displayName = "No name";
     }
 
     @Override

@@ -26,4 +26,27 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="15dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/participants_number_text"
+        android:layout_below="@+id/event_description_text"
+        android:layout_alignRight="@+id/event_title_text"
+        android:layout_marginTop="27dp" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/have_answered_list"
+        android:layout_below="@+id/participants_number_text"
+        android:layout_alignLeft="@+id/event_description_text"
+        android:layout_toLeftOf="@+id/participants_number_text" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/have_not_answered_list"
+        android:layout_below="@+id/participants_number_text"
+        android:layout_toRightOf="@+id/participants_number_text" />
+
 </RelativeLayout>
