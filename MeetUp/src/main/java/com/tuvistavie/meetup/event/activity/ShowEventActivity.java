@@ -13,6 +13,7 @@ import com.tuvistavie.meetup.contact.util.ContactListAdapter;
 import com.tuvistavie.meetup.event.model.Event;
 import com.tuvistavie.meetup.event.model.EventDate;
 import com.tuvistavie.meetup.event.model.EventDateCollection;
+import com.tuvistavie.meetup.event.util.adapter.EventDateAdapter;
 import com.tuvistavie.meetup.model.listener.OnUpdateListener;
 
 import java.util.List;
@@ -29,14 +30,16 @@ public class ShowEventActivity extends RoboActivity {
     @InjectView(R.id.participants_number_text) TextView participantsNumberTextView;
     @InjectView(R.id.has_answered_list) ListView hasAnsweredListView;
     @InjectView(R.id.has_not_answered_list) ListView hasNotAnsweredListView;
+    @InjectView(R.id.best_dates_list_view) ListView bestDatesListView;
 
     @Inject ContactListAdapter hasAnsweredAdapter;
     @Inject ContactListAdapter hasNotAnsweredAdapter;
+    @Inject EventDateAdapter bestDatesAdapter;
 
     @Inject ContactList hasAnsweredList;
     @Inject ContactList hasNotAnsweredList;
 
-    private List<EventDate> bestDates;
+    @Inject EventDateCollection bestDates;
 
     private Event event;
 
@@ -47,8 +50,10 @@ public class ShowEventActivity extends RoboActivity {
         initializeEvent();
         initializeEventDisplay();
 
+        bestDatesAdapter.setCollection(bestDates);
         hasAnsweredAdapter.setCollection(hasAnsweredList);
         hasNotAnsweredAdapter.setCollection(hasNotAnsweredList);
+        bestDatesListView.setAdapter(bestDatesAdapter);
         hasAnsweredListView.setAdapter(hasAnsweredAdapter);
         hasNotAnsweredListView.setAdapter(hasNotAnsweredAdapter);
     }
@@ -82,6 +87,7 @@ public class ShowEventActivity extends RoboActivity {
             }
         }
         bestDates = event.getBestDates();
+        bestDatesAdapter.setCollection(bestDates);
     }
 
     private void updateEventDisplay() {
@@ -89,6 +95,7 @@ public class ShowEventActivity extends RoboActivity {
         String participants = getResources().getQuantityString(R.plurals.event_users_selected, participantsNumber, participantsNumber);
         participantsNumberTextView.setText(String.valueOf(participants));
         //FIXME: this could be done automatically
+        bestDatesAdapter.notifyDataSetChanged();
         hasAnsweredAdapter.notifyDataSetChanged();
         hasNotAnsweredAdapter.notifyDataSetChanged();
     }

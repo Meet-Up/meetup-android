@@ -20,7 +20,7 @@ public final class DateTimeUtil {
         return c.getTime();
     }
 
-    public static String formatDate(Date date) {
+    public static String formatDateTime(Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         int year = c.get(Calendar.YEAR);
@@ -29,6 +29,15 @@ public final class DateTimeUtil {
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
         return String.format("%d/%02d/%02d %02d:%02d", year, month, day, hour, minute);
+    }
+
+    public static String formatDate(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        return String.format("%d/%02d/%02d", year, month, day);
     }
 
     public static Date getPreviousMonth(Date date) {

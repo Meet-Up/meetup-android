@@ -11,13 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Created by daniel on 8/31/13.
@@ -141,14 +136,14 @@ public class Event extends AbstractEntity {
             return "";
         }
         EventDate e = eventDateCollection.getEntities().get(0);
-        return DateTimeUtil.formatDate(eventDateCollection.getEntities().get(0).getStartDateTime());
+        return DateTimeUtil.formatDateTime(eventDateCollection.getEntities().get(0).getStartDateTime());
     }
 
     public String getEndDateString() {
         if(eventDateCollection.getEntities().isEmpty()) {
             return "";
         }
-        return DateTimeUtil.formatDate(eventDateCollection.getEntities().get(0).getEndDateTime());
+        return DateTimeUtil.formatDateTime(eventDateCollection.getEntities().get(0).getEndDateTime());
     }
 
     public ContactList getParticipants() {
@@ -160,7 +155,7 @@ public class Event extends AbstractEntity {
     }
 
     // FIXME: risk to add same user several times
-    public List<EventDate> getBestDates() {
+    public EventDateCollection getBestDates() {
         for(EventDate date: eventDateCollection.getEntities()) {
             date.clearAvailableUsers();
         }
@@ -172,6 +167,6 @@ public class Event extends AbstractEntity {
             }
         }
         Collections.sort(eventDateCollection.getEntities());
-        return eventDateCollection.getEntities();
+        return eventDateCollection;
     }
 }
