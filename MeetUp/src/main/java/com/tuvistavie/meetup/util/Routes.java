@@ -14,7 +14,8 @@ public enum Routes {
     CONFIRM_USER("/auth/confirm_user"),
     CHECK_AUTH("/auth/check"),
     EVENTS("/events"),
-    CONTACTS("/contacts");
+    CONTACTS("/contacts"),
+    PARTICIPANTS("/events/%d/participants");
 
     private String route;
 
@@ -23,6 +24,10 @@ public enum Routes {
     }
 
     public String generateRoute(String query) {
+        return generateRoute(route, query);
+    }
+
+    private String generateRoute(String route, String query) {
         try {
             URI uri = new URI(
                     Config.PROTOCOL,
@@ -55,5 +60,9 @@ public enum Routes {
 
     public String getRoute() {
         return generateRoute((String)null);
+    }
+
+    public String getRoute(int id) {
+        return generateRoute(String.format(route, id), null);
     }
 }

@@ -17,4 +17,13 @@
         android:layout_marginTop="16dp"
         android:id="@+id/event_title_text" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/event_description_text"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/event_title_text"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp" />
+
 </RelativeLayout>

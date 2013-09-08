@@ -1,8 +1,6 @@
 package com.tuvistavie.meetup.event.activity;
 
 import android.os.Bundle;
-import android.app.Activity;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
@@ -16,7 +14,8 @@ public class ShowEventActivity extends RoboActivity {
 
     public static final String EVENT_EXTRA = "ShowEventActivity.event_extra";
 
-    @InjectView(R.id.event_title_text) TextView textView;
+    @InjectView(R.id.event_title_text) TextView titleTextView;
+    @InjectView(R.id.event_description_text) TextView descriptionTextView;
 
     private Event event;
 
@@ -26,11 +25,13 @@ public class ShowEventActivity extends RoboActivity {
         setContentView(R.layout.activity_show_event);
         event = new Event();
         event.fromJSON(getIntent().getStringExtra(EVENT_EXTRA), true);
+        event.getParticipants().fetchInBackground();
         initializeEventDisplay();
     }
 
     private void initializeEventDisplay() {
-        textView.setText(event.getName());
+        titleTextView.setText(event.getName());
+        descriptionTextView.setText(event.getDescription());
     }
 
     @Override

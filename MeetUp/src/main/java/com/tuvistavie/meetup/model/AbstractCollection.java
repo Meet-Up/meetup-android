@@ -3,6 +3,7 @@ package com.tuvistavie.meetup.model;
 import android.os.AsyncTask;
 
 import com.tuvistavie.meetup.auth.model.User;
+import com.tuvistavie.meetup.model.listener.OnErrorListener;
 import com.tuvistavie.meetup.model.listener.OnFetchListener;
 import com.tuvistavie.meetup.model.listener.OnUpdateListener;
 import com.tuvistavie.meetup.util.HTTPHelper;
@@ -26,6 +27,7 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
 
     private OnFetchListener onFetchListener;
     private OnUpdateListener onUpdateListener;
+    private OnErrorListener onErrorListener;
 
     public AbstractCollection() {
         entities = new ArrayList<T>();
@@ -88,14 +90,24 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
             uri = HTTPHelper.addParameterToURI(uri, "token", User.getInstance().getToken());
         }
         JSONArray jsonArray = HTTPHelper.getJSONArray(uri);
-        fromJSON(jsonArray);
-        runOnFetch();
+        if(jsonArray != null) {
+            fromJSON(jsonArray);
+            runOnFetch();
+        } else {
+            runOnError();
+        }
+    }
+
+    private void runOnError() {
+        if(onErrorListener != null) {
+            onErrorListener.onError(this);
+        }
     }
 
     private void runOnFetch() {
         runOnUpdate();
         if(onFetchListener != null) {
-            onFetchListener.onFetch(null);
+            onFetchListener.onFetch(this);
         }
     }
 
@@ -148,6 +160,14 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
 
     public void setOnUpdateListener(OnUpdateListener onUpdateListener) {
         this.onUpdateListener = onUpdateListener;
+    }
+
+    public OnErrorListener getOnErrorListener() {
+        return onErrorListener;
+    }
+
+    public void setOnErrorListener(OnErrorListener onErrorListener) {
+        this.onErrorListener = onErrorListener;
     }
 
     public void fetchInBackground() {

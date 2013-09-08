@@ -53,7 +53,9 @@ public class Event extends AbstractEntity {
             id = jsonObject.getInt("id");
             name = new String(jsonObject.getString("name").getBytes("ISO-8859-1"), "UTF-8");
             description = new String(jsonObject.getString("description").getBytes("ISO-8859-1"), "UTF-8");
-            creator = new Participant(jsonObject.getJSONObject("creator"));
+            if(jsonObject.has("creator")) {
+                creator = new Participant(jsonObject.getJSONObject("creator"));
+            }
             this.eventDateCollection = new EventDateCollection();
             eventDateCollection.fromJSON(jsonObject.getJSONArray("event_dates"));
             if(jsonObject.has("participants")) {
@@ -66,6 +68,7 @@ public class Event extends AbstractEntity {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        participants.setUri(Routes.PARTICIPANTS.getRoute(id));
     }
 
     // FIXME: this should be done automatically
@@ -89,7 +92,7 @@ public class Event extends AbstractEntity {
             jsonEvent.put("id", id);
             jsonEvent.put("name", name);
             jsonEvent.put("description", description);
-            jsonEvent.put("event_dates_attributes", eventDateCollection.toJSONArray());
+            jsonEvent.put("event_dates", eventDateCollection.toJSONArray());
             JSONArray users = new JSONArray();
             for(Contact contact: participants.getEntities()) {
                 List<String> emails = contact.getEmails();
@@ -139,5 +142,13 @@ public class Event extends AbstractEntity {
             return "";
         }
         return DateTimeUtil.formatDate(eventDateCollection.getEntities().get(0).getEndDateTime());
+    }
+
+    public ContactList getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(ContactList participants) {
+        this.participants = participants;
     }
 }

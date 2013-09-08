@@ -17,11 +17,14 @@ import java.util.List;
 public class ContactList extends AbstractCollection<Contact> {
     private static ContactList phoneBookContent;
 
+    protected String uri;
+
     private boolean loaded;
 
     public ContactList() {
-
+        this.uri = Routes.CONTACTS.getRoute();
     }
+
 
     public ContactList(JSONArray jsonArray) {
         super(jsonArray);
@@ -32,9 +35,14 @@ public class ContactList extends AbstractCollection<Contact> {
         return Contact.class;
     }
 
+
     @Override
     protected String getURI() {
-        return Routes.CONTACTS.getRoute();
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public void loadFromPhoneBook() {
