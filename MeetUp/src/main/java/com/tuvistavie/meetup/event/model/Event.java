@@ -91,7 +91,9 @@ public class Event extends AbstractEntity {
     public JSONObject toJSONObject() {
         JSONObject jsonEvent = new JSONObject();
         try {
-            jsonEvent.put("id", id);
+            if(id > 0) {
+                jsonEvent.put("id", id);
+            }
             jsonEvent.put("name", name);
             jsonEvent.put("description", description);
             jsonEvent.put("event_dates", eventDateCollection.toJSONArray());

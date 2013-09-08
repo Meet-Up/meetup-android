@@ -57,7 +57,9 @@ public class EventDate extends AbstractEntity implements Comparable<EventDate> {
         try {
             jsonDate.put("start", (int)Math.ceil(startDateTime.getTime() / 1000.0));
             jsonDate.put("end", (int)Math.ceil(endDateTime.getTime() / 1000.0));
-            jsonDate.put("id", id);
+            if(id > 0) {
+                jsonDate.put("id", id);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

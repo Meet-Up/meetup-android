@@ -45,9 +45,15 @@ public class Contact extends AbstractEntity {
     public void fromJSON(JSONObject jsonObject) {
         JSONHelper<String> stringHelper = new JSONHelper<String>();
         try {
-            //this.displayName = jsonObject.getString("display_name");
-            //this.phoneNumbers = helper.jsonArrayToList(jsonObject.getJSONArray("phone_numbers"));
-            //this.emails = helper.jsonArrayToList(jsonObject.getJSONArray("emails"));
+            if(jsonObject.has("display_name")) {
+                this.displayName = jsonObject.getString("display_name");
+            }
+            if(jsonObject.has("phone_numbers")) {
+                this.phoneNumbers = stringHelper.jsonArrayToList(jsonObject.getJSONArray("phone_numbers"));
+            }
+            if(jsonObject.has("emails")) {
+                this.emails = stringHelper.jsonArrayToList(jsonObject.getJSONArray("emails"));
+            }
             this.mainEmail = jsonObject.getString("email");
             if(jsonObject.has("possible_dates")) {
                 this.possibleDates = new PossibleDateCollection(jsonObject.getJSONArray("possible_dates"));
@@ -83,7 +89,9 @@ public class Contact extends AbstractEntity {
             jsonObject.put("display_name", displayName);
             jsonObject.put("phone_numbers", helper.listToJsonArray(phoneNumbers));
             jsonObject.put("emails", helper.listToJsonArray(emails));
-            jsonObject.put("id", id);
+            if(id > 0) {
+                jsonObject.put("id", id);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

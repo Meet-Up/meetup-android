@@ -15,5 +15,6 @@
     <string name="title_activity_select_time">SelectTimeActivity</string>
     <string name="title_activity_select_contacts">SelectContactsActivity</string>
     <string name="title_activity_show_event">ShowEventActivity</string>
+    <string name="refresh">更新</string>
 
 </resources>

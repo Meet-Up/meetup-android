@@ -29,8 +29,7 @@ public class TimeLineAdapter extends CollectionAdapter<Event> {
     protected void updateView(View view, Event model) {
         ((TextView) view.findViewById(R.id.event_name_text)).setText(model.getName());
         ((TextView) view.findViewById(R.id.event_organizer_text)).setText(model.getCreator().getUsername());
-        ((TextView) view.findViewById(R.id.event_from_text)).setText(model.getStartDateString());
-        ((TextView) view.findViewById(R.id.event_to_text)).setText(model.getEndDateString());
+        ((TextView) view.findViewById(R.id.event_date_text)).setText("時間調整中");
         view.setOnClickListener(new ViewClickedListener(model));
     }
 

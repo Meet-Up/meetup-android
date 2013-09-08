@@ -2,6 +2,7 @@ package com.tuvistavie.meetup.event.activity;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -73,6 +74,10 @@ public class ShowEventActivity extends RoboActivity {
                 });
             }
         });
+        event.getParticipants().fetchInBackground();
+    }
+
+    public void refresh(View v) {
         event.getParticipants().fetchInBackground();
     }
 
