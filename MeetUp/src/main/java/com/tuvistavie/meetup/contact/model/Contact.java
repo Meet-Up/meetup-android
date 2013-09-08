@@ -2,6 +2,7 @@ package com.tuvistavie.meetup.contact.model;
 
 import com.tuvistavie.meetup.App;
 import com.tuvistavie.meetup.contact.util.ContactHelper;
+import com.tuvistavie.meetup.event.model.EventDate;
 import com.tuvistavie.meetup.event.model.PossibleDate;
 import com.tuvistavie.meetup.event.model.PossibleDateCollection;
 import com.tuvistavie.meetup.model.AbstractCollection;
@@ -53,6 +54,7 @@ public class Contact extends AbstractEntity {
             } else {
                 this.possibleDates = new PossibleDateCollection();
             }
+            id = jsonObject.getInt("id");
         } catch (JSONException e) {
 
         }
@@ -81,6 +83,7 @@ public class Contact extends AbstractEntity {
             jsonObject.put("display_name", displayName);
             jsonObject.put("phone_numbers", helper.listToJsonArray(phoneNumbers));
             jsonObject.put("emails", helper.listToJsonArray(emails));
+            jsonObject.put("id", id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -114,5 +117,30 @@ public class Contact extends AbstractEntity {
 
     public PossibleDateCollection getPossibleDates() {
         return possibleDates;
+    }
+
+    public boolean isAvailable(PossibleDate possibleDate) {
+        int count = 0;
+        boolean[] possibleTime = possibleDate.getPossibleTime();
+        for(int i = 0; i < 48; i++) {
+            if(possibleTime[i]) {
+                count++;
+                if(count >= 4) {
+                    return true;
+                }
+            } else {
+                count = 0;
+            }
+        }
+        return false;
+    }
+
+    public boolean isAvailable(EventDate date) {
+        for(PossibleDate p: possibleDates.getEntities()) {
+            if(p.getEventDateId() == date.getId()) {
+                return isAvailable(p);
+            }
+        }
+        return false;
     }
 }

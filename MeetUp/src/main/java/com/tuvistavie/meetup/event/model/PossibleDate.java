@@ -10,6 +10,8 @@ import org.json.JSONObject;
  */
 public class PossibleDate extends AbstractEntity {
     private boolean[] possibleTime;
+    private int eventDateId;
+    private int userId;
 
     public PossibleDate() {
         super();
@@ -27,6 +29,8 @@ public class PossibleDate extends AbstractEntity {
             for(int i = 0; i < time.length(); i++) {
                 possibleTime[i] = time.charAt(i) == '1';
             }
+            eventDateId = jsonObject.getInt("event_date_id");
+            userId = jsonObject.getInt("user_id");
         } catch (JSONException e) {
 
         }
@@ -41,9 +45,21 @@ public class PossibleDate extends AbstractEntity {
         }
         try {
             jsonObject.put("possible_time", time.toString());
+            jsonObject.put("event_date_id", eventDateId);
+            jsonObject.put("user_id", userId);
         } catch (JSONException e) {
 
         }
         return jsonObject;
     }
+
+    public boolean[] getPossibleTime() {
+        return possibleTime;
+    }
+
+    public int getEventDateId() {
+        return eventDateId;
+    }
+
+
 }

@@ -26,4 +26,5 @@ public class PossibleDateCollection extends AbstractCollection<PossibleDate> {
     protected String getURI() {
         return null;
     }
+
 }
