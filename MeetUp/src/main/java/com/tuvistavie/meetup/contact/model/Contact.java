@@ -2,12 +2,16 @@ package com.tuvistavie.meetup.contact.model;
 
 import com.tuvistavie.meetup.App;
 import com.tuvistavie.meetup.contact.util.ContactHelper;
+import com.tuvistavie.meetup.event.model.PossibleDate;
+import com.tuvistavie.meetup.event.model.PossibleDateCollection;
+import com.tuvistavie.meetup.model.AbstractCollection;
 import com.tuvistavie.meetup.model.AbstractEntity;
 import com.tuvistavie.meetup.util.JSONHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +23,7 @@ public class Contact extends AbstractEntity {
     protected List<String> emails;
     protected String mainEmail;
     protected List<String> phoneNumbers;
+    protected PossibleDateCollection possibleDates;
 
     public Contact(String displayName, List<String> emails, List<String> phoneNumbers) {
         this.displayName = displayName;
@@ -37,12 +42,17 @@ public class Contact extends AbstractEntity {
 
     @Override
     public void fromJSON(JSONObject jsonObject) {
-        JSONHelper<String> helper = new JSONHelper<String>();
+        JSONHelper<String> stringHelper = new JSONHelper<String>();
         try {
             //this.displayName = jsonObject.getString("display_name");
             //this.phoneNumbers = helper.jsonArrayToList(jsonObject.getJSONArray("phone_numbers"));
             //this.emails = helper.jsonArrayToList(jsonObject.getJSONArray("emails"));
             this.mainEmail = jsonObject.getString("email");
+            if(jsonObject.has("possible_dates")) {
+                this.possibleDates = new PossibleDateCollection(jsonObject.getJSONArray("possible_dates"));
+            } else {
+                this.possibleDates = new PossibleDateCollection();
+            }
         } catch (JSONException e) {
 
         }
@@ -100,5 +110,9 @@ public class Contact extends AbstractEntity {
 
     public void setPhoneNumbers(List<String> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
+    }
+
+    public PossibleDateCollection getPossibleDates() {
+        return possibleDates;
     }
 }

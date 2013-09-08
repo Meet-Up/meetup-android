@@ -11,6 +11,9 @@
 
     <string name="select_user">参加者を選ぶ</string>
 
+    <string name="has_answered">回答済み</string>
+    <string name="has_not_answered">未回答</string>
+
     <plurals name="event_users_selected">
         <item quantity="zero">参加者なし</item>
         <item quantity="other">参加者%d人</item>
