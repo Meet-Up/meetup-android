@@ -14,5 +14,6 @@
     <string name="save_btn">保存</string>
     <string name="title_activity_select_time">SelectTimeActivity</string>
     <string name="title_activity_select_contacts">SelectContactsActivity</string>
+    <string name="title_activity_show_event">ShowEventActivity</string>
 
 </resources>

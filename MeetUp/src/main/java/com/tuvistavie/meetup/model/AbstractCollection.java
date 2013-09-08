@@ -33,6 +33,11 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
         lastFetch = new Date(0);
     }
 
+    public AbstractCollection(JSONArray jsonArray) {
+        this();
+        fromJSON(jsonArray);
+    }
+
     @Override
     public JSONArray toJSONArray() {
         JSONArray jsonArray = new JSONArray();

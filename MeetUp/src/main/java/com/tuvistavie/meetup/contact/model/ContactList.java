@@ -7,6 +7,8 @@ import com.tuvistavie.meetup.contact.util.ContactHelper;
 import com.tuvistavie.meetup.model.AbstractCollection;
 import com.tuvistavie.meetup.util.Routes;
 
+import org.json.JSONArray;
+
 import java.util.List;
 
 /**
@@ -16,6 +18,14 @@ public class ContactList extends AbstractCollection<Contact> {
     private static ContactList phoneBookContent;
 
     private boolean loaded;
+
+    public ContactList() {
+
+    }
+
+    public ContactList(JSONArray jsonArray) {
+        super(jsonArray);
+    }
 
     @Override
     protected Class<?> getEntityClass() {

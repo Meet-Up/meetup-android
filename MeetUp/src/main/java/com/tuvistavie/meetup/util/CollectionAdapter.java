@@ -16,8 +16,13 @@ import com.tuvistavie.meetup.model.listener.OnUpdateListener;
  */
 public abstract class CollectionAdapter<T> extends BaseAdapter {
     protected AbstractCollection collection;
+    protected Context context;
 
     public CollectionAdapter() {
+    }
+
+    public CollectionAdapter(Context context) {
+        this.context = context;
     }
 
     public void add(T elem) {
@@ -85,6 +90,14 @@ public abstract class CollectionAdapter<T> extends BaseAdapter {
             rowView = contextView;
         }
         return rowView;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     @Override

@@ -56,6 +56,11 @@ public class Event extends AbstractEntity {
             creator = new Participant(jsonObject.getJSONObject("creator"));
             this.eventDateCollection = new EventDateCollection();
             eventDateCollection.fromJSON(jsonObject.getJSONArray("event_dates"));
+            if(jsonObject.has("participants")) {
+                participants = new ContactList(jsonObject.getJSONArray("participants"));
+            } else {
+                participants = new ContactList();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
@@ -63,10 +68,25 @@ public class Event extends AbstractEntity {
         }
     }
 
+    // FIXME: this should be done automatically
+    public void fromJSON(String jsonString, boolean fixEncoding) {
+        fromJSON(jsonString);
+        if(fixEncoding) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonString);
+                name = jsonObject.getString("name");
+                description = jsonObject.getString("description");
+            } catch (JSONException e) {
+
+            }
+        }
+    }
+
     @Override
     public JSONObject toJSONObject() {
         JSONObject jsonEvent = new JSONObject();
         try {
+            jsonEvent.put("id", id);
             jsonEvent.put("name", name);
             jsonEvent.put("description", description);
             jsonEvent.put("event_dates_attributes", eventDateCollection.toJSONArray());

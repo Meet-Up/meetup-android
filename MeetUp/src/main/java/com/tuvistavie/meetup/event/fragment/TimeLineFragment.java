@@ -21,7 +21,7 @@ public class TimeLineFragment extends RoboFragment {
     private static final String TAG = "com.tuvistavie.meetup.event.fragment.TimeLineFragment";
 
     @InjectView(R.id.time_list_view) ListView listView;
-    @Inject TimeLineAdapter adapter;
+    TimeLineAdapter adapter;
     TimeLine timeLine;
 
     public TimeLineFragment(TimeLine timeLine) {
@@ -32,6 +32,7 @@ public class TimeLineFragment extends RoboFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        this.adapter = new TimeLineAdapter(getActivity());
         View rootView = inflater.inflate(R.layout.fragment_timeline, container, false);
         return rootView;
     }

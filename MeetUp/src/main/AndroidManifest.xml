@@ -46,8 +46,12 @@
             android:label="@string/title_activity_select_time" >
         </activity>
         <activity
-            android:name=".contact.activity.SelectContactsActivity"
+            android:name="com.tuvistavie.meetup.contact.activity.SelectContactsActivity"
             android:label="@string/title_activity_select_contacts" >
+        </activity>
+        <activity
+            android:name=".event.activity.ShowEventActivity"
+            android:label="@string/title_activity_show_event" >
         </activity>
     </application>
 
