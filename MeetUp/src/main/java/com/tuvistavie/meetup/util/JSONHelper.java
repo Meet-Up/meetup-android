@@ -12,6 +12,9 @@ import java.util.List;
 public class JSONHelper<T> {
 
     public List<T> jsonArrayToList(JSONArray array) {
+        if(array == null) {
+            return null;
+        }
         List<T> list = new ArrayList<T>();
         for(int i = 0; i < array.length(); i++) {
             try {

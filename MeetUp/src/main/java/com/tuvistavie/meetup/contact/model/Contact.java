@@ -38,28 +38,14 @@ public class Contact extends AbstractEntity {
     }
 
     @Override
-    public void fromJSON(JSONObject jsonObject) {
+    protected void convertFromJSON(JSONObject jsonObject) throws JSONException {
+        super.convertFromJSON(jsonObject);
         JSONHelper<String> stringHelper = new JSONHelper<String>();
-        try {
-            if(jsonObject.has("display_name")) {
-                this.displayName = jsonObject.getString("display_name");
-            }
-            if(jsonObject.has("phone_numbers")) {
-                this.phoneNumbers = stringHelper.jsonArrayToList(jsonObject.getJSONArray("phone_numbers"));
-            }
-            if(jsonObject.has("emails")) {
-                this.emails = stringHelper.jsonArrayToList(jsonObject.getJSONArray("emails"));
-            }
-            this.mainEmail = jsonObject.getString("email");
-            if(jsonObject.has("possible_dates")) {
-                this.possibleDates = new PossibleDateCollection(jsonObject.getJSONArray("possible_dates"));
-            } else {
-                this.possibleDates = new PossibleDateCollection();
-            }
-            id = jsonObject.getInt("id");
-        } catch (JSONException e) {
-
-        }
+        mainEmail = jsonObject.optString("email", "");
+        displayName = jsonObject.optString("display_name");
+        possibleDates = new PossibleDateCollection(jsonObject.optJSONArray("possible_dates"));
+        phoneNumbers = stringHelper.jsonArrayToList(jsonObject.optJSONArray("phone_numbers"));
+        emails = stringHelper.jsonArrayToList(jsonObject.optJSONArray("emails"));
         this.setDisplayNameFromEmail();
     }
 
@@ -78,20 +64,12 @@ public class Contact extends AbstractEntity {
     }
 
     @Override
-    public JSONObject toJSONObject() {
-        JSONObject jsonObject = new JSONObject();
+    protected JSONObject convertToJSONObject() throws JSONException {
+        JSONObject jsonObject = super.convertToJSONObject();
         JSONHelper<String> helper = new JSONHelper<String>();
-        try {
-            jsonObject.put("display_name", displayName);
-            jsonObject.put("phone_numbers", helper.listToJsonArray(phoneNumbers));
-            jsonObject.put("emails", helper.listToJsonArray(emails));
-            if(id > 0) {
-                jsonObject.put("id", id);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        jsonObject.put("display_name", displayName);
+        jsonObject.putOpt("phone_numbers", helper.listToJsonArray(phoneNumbers));
+        jsonObject.putOpt("emails", helper.listToJsonArray(emails));
         return jsonObject;
     }
 
