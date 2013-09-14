@@ -19,6 +19,8 @@ android {
     defaultConfig {
         minSdkVersion 7
         targetSdkVersion 16
+        testPackageName "com.tuvistavie.meetup.test"
+        testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
 }
 
