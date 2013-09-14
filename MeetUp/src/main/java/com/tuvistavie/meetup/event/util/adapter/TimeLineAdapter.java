@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.tuvistavie.meetup.App;
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.event.activity.ShowEventActivity;
 import com.tuvistavie.meetup.event.model.Event;

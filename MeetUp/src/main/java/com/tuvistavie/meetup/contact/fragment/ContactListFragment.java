@@ -9,11 +9,9 @@ import android.widget.ListView;
 import com.google.inject.Inject;
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.contact.model.ContactList;
-import com.tuvistavie.meetup.contact.util.ContactListAdapter;
 import com.tuvistavie.meetup.contact.util.SelectContactListAdapter;
 import com.tuvistavie.meetup.model.listener.OnUpdateListener;
 
-import roboguice.RoboGuice;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 

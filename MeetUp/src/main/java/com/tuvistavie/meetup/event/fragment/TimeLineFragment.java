@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.google.inject.Inject;
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.event.model.TimeLine;
 import com.tuvistavie.meetup.event.util.adapter.TimeLineAdapter;

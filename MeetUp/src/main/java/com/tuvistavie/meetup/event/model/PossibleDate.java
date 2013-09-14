@@ -39,7 +39,7 @@ public class PossibleDate extends AbstractEntity {
     @Override
     public JSONObject toJSONObject() {
         JSONObject jsonObject = new JSONObject();
-        StringBuffer time = new StringBuffer();
+        StringBuilder time = new StringBuilder();
         for(Boolean b: possibleTime) {
             time.append(b ? '1' : '0');
         }

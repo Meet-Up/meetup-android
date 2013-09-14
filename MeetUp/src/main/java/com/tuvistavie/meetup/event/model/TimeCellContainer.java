@@ -2,7 +2,6 @@ package com.tuvistavie.meetup.event.model;
 
 import com.tuvistavie.meetup.event.activity.SelectTimeActivity;
 import com.tuvistavie.meetup.model.listener.OnUpdateListener;
-import com.tuvistavie.meetup.util.DateTimeUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;

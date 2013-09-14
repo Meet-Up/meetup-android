@@ -1,18 +1,14 @@
 package com.tuvistavie.meetup.contact.model;
 
-import com.tuvistavie.meetup.App;
-import com.tuvistavie.meetup.contact.util.ContactHelper;
 import com.tuvistavie.meetup.event.model.EventDate;
 import com.tuvistavie.meetup.event.model.PossibleDate;
 import com.tuvistavie.meetup.event.model.PossibleDateCollection;
-import com.tuvistavie.meetup.model.AbstractCollection;
 import com.tuvistavie.meetup.model.AbstractEntity;
 import com.tuvistavie.meetup.util.JSONHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

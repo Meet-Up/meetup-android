@@ -12,12 +12,9 @@ import com.tuvistavie.meetup.contact.model.Contact;
 import com.tuvistavie.meetup.contact.model.ContactList;
 import com.tuvistavie.meetup.contact.util.ContactListAdapter;
 import com.tuvistavie.meetup.event.model.Event;
-import com.tuvistavie.meetup.event.model.EventDate;
 import com.tuvistavie.meetup.event.model.EventDateCollection;
 import com.tuvistavie.meetup.event.util.adapter.EventDateAdapter;
 import com.tuvistavie.meetup.model.listener.OnUpdateListener;
-
-import java.util.List;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;

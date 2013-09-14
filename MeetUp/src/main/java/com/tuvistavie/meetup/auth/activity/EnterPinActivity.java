@@ -24,10 +24,10 @@ public class EnterPinActivity extends RoboActivity {
 
     public static final int REQUEST_CODE = 11;
 
-    @InjectView(R.id.pin_edit) EditText pinEdit;
-    @InjectView(R.id.pin_error_view) TextView pinErrorText;
-    @InjectResource(R.string.pin_error) String pinErrorString;
-    @InjectExtra(CheckMailActivity.TOKEN_EXTRA) String token;
+    @InjectView(R.id.pin_edit) private EditText pinEdit;
+    @InjectView(R.id.pin_error_view) private TextView pinErrorText;
+    @InjectResource(R.string.pin_error) private String pinErrorString;
+    @InjectExtra(CheckMailActivity.TOKEN_EXTRA) private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

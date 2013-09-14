@@ -7,9 +7,7 @@ import com.tuvistavie.meetup.model.AbstractEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by daniel on 8/31/13.

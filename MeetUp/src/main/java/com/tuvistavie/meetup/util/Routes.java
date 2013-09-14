@@ -46,7 +46,7 @@ public enum Routes {
     }
 
     public String generateRoute(Map<String, String> parameters) {
-        StringBuffer paramBuffer = new StringBuffer();
+        StringBuilder paramBuffer = new StringBuilder();
         for(Map.Entry<String, String> entry: parameters.entrySet()) {
             paramBuffer.append(entry.getKey() + "=" + entry.getValue());
             paramBuffer.append("&");

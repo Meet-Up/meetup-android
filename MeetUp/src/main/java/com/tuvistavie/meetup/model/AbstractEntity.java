@@ -5,7 +5,6 @@ import com.tuvistavie.meetup.util.HTTPHelper;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

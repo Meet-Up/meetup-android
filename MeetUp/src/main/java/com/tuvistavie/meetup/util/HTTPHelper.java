@@ -9,7 +9,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHttpRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +33,7 @@ public final class HTTPHelper {
     private static String getReponseContent(HttpResponse response) {
         try {
             InputStream contentStream = response.getEntity().getContent();
-            StringBuffer contentBuffer = new StringBuffer();
+            StringBuilder contentBuffer = new StringBuilder();
             int c;
             while((c = contentStream.read()) != -1) {
                 contentBuffer.append((char)c);

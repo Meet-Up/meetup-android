@@ -12,7 +12,6 @@ import android.view.Menu;
 import com.google.inject.Inject;
 import com.tuvistavie.meetup.R;
 import com.tuvistavie.meetup.contact.fragment.ContactListFragment;
-import com.tuvistavie.meetup.contact.model.Contact;
 import com.tuvistavie.meetup.event.fragment.TimeLineFragment;
 import com.tuvistavie.meetup.event.model.TimeLine;
 
