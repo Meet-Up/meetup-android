@@ -29,6 +29,7 @@ public class Event extends AbstractEntity {
         super();
         this.remoteUri = Routes.EVENTS.getRoute();
         this.participants = new ContactList();
+        this.eventDateCollection = new EventDateCollection();
     }
 
     public Event(String name, String description, EventDateCollection eventDateCollection, ContactList participants) {
@@ -82,34 +83,26 @@ public class Event extends AbstractEntity {
                 name = jsonObject.getString("name");
                 description = jsonObject.getString("description");
             } catch (JSONException e) {
-
+                
             }
         }
     }
 
     @Override
-    public JSONObject toJSONObject() {
-        JSONObject jsonEvent = new JSONObject();
-        try {
-            if(id > 0) {
-                jsonEvent.put("id", id);
+    protected JSONObject convertToJSONObject() throws JSONException {
+        JSONObject jsonEvent = super.convertToJSONObject();
+        jsonEvent.put("name", name);
+        jsonEvent.put("description", description);
+        jsonEvent.put("event_dates", eventDateCollection.toJSONArray());
+        JSONArray users = new JSONArray();
+        for(Contact contact: participants.getEntities()) {
+            List<String> emails = contact.getEmails();
+            if(!emails.isEmpty()) {
+                users.put(emails.get(0));
             }
-            jsonEvent.put("name", name);
-            jsonEvent.put("description", description);
-            jsonEvent.put("event_dates", eventDateCollection.toJSONArray());
-            JSONArray users = new JSONArray();
-            for(Contact contact: participants.getEntities()) {
-                List<String> emails = contact.getEmails();
-                if(!emails.isEmpty()) {
-                    users.put(emails.get(0));
-                }
-            }
-            jsonEvent.put("users", users);
-            return jsonEvent;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
         }
+        jsonEvent.put("users", users);
+        return jsonEvent;
     }
 
     public String getName() {

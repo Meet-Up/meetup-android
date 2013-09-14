@@ -50,7 +50,7 @@ public abstract class AbstractEntity implements Entity {
         return path + "/" + getId();
     }
 
-    protected boolean isPersisted() {
+    public boolean isPersisted() {
         return getId() != -1;
     }
 
@@ -121,6 +121,24 @@ public abstract class AbstractEntity implements Entity {
     @Override
     public String toJSON() {
         return toJSONObject().toString();
+    }
+
+    @Override
+    public JSONObject toJSONObject() {
+        try {
+            return convertToJSONObject();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    protected JSONObject convertToJSONObject() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        if(id > 0) {
+            jsonObject.put("id", id);
+        }
+        return jsonObject;
     }
 
     public boolean isSelected() {
