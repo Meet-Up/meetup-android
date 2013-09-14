@@ -58,7 +58,7 @@ public class ShowEventActivity extends RoboActivity {
 
     private void initializeEvent() {
         event = new Event();
-        event.fromJSON(getIntent().getStringExtra(EVENT_EXTRA), true);
+        event.fromJSON(getIntent().getStringExtra(EVENT_EXTRA));
         event.getParticipants().setOnUpdateListener(new OnUpdateListener() {
             @Override
             public void onUpdate(Object updatedObject) {

@@ -51,40 +51,24 @@ public class Event extends AbstractEntity {
     }
 
     @Override
-    public void fromJSON(JSONObject jsonObject) {
-        try {
-            id = jsonObject.getInt("id");
-            name = new String(jsonObject.getString("name").getBytes("ISO-8859-1"), "UTF-8");
-            description = new String(jsonObject.getString("description").getBytes("ISO-8859-1"), "UTF-8");
-            if(jsonObject.has("creator")) {
-                creator = new Participant(jsonObject.getJSONObject("creator"));
-            }
-            this.eventDateCollection = new EventDateCollection();
-            eventDateCollection.fromJSON(jsonObject.getJSONArray("event_dates"));
-            if(jsonObject.has("participants")) {
-                participants = new ContactList(jsonObject.getJSONArray("participants"));
-            } else {
-                participants = new ContactList();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+    public void convertFromJSON(JSONObject jsonObject) throws JSONException {
+        name = jsonObject.getString("name");
+        description = jsonObject.getString("description");
+        if(jsonObject.has("creator")) {
+            creator = new Participant(jsonObject.getJSONObject("creator"));
         }
+        eventDateCollection = new EventDateCollection(jsonObject.optJSONArray("event_dates"));
+        participants = new ContactList(jsonObject.optJSONArray("participants"));
         participants.setUri(Routes.PARTICIPANTS.getRoute(id));
     }
 
-    // FIXME: this should be done automatically
-    public void fromJSON(String jsonString, boolean fixEncoding) {
-        fromJSON(jsonString);
-        if(fixEncoding) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonString);
-                name = jsonObject.getString("name");
-                description = jsonObject.getString("description");
-            } catch (JSONException e) {
-                
-            }
+    @Override
+    public void fixEncoding() {
+        try {
+            name = new String(name.getBytes("ISO-8859-1"), "UTF-8");
+            description = new String(description.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 

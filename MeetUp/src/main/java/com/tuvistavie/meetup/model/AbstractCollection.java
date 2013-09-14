@@ -37,7 +37,9 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
 
     public AbstractCollection(JSONArray jsonArray) {
         this();
-        fromJSON(jsonArray);
+        if(jsonArray != null) {
+            fromJSON(jsonArray);
+        }
     }
 
     @Override
@@ -92,6 +94,9 @@ public abstract class AbstractCollection<T extends Entity> implements Collection
         JSONArray jsonArray = HTTPHelper.getJSONArray(uri);
         if(jsonArray != null) {
             fromJSON(jsonArray);
+            for(T entity: entities) {
+                entity.fixEncoding();
+            }
             runOnFetch();
         } else {
             runOnError();

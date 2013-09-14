@@ -26,7 +26,9 @@ public abstract class AbstractEntity implements Entity {
     }
 
     public AbstractEntity(JSONObject jsonObject) {
-        fromJSON(jsonObject);
+        if(jsonObject != null) {
+            fromJSON(jsonObject);
+        }
         this.selected = false;
     }
 
@@ -61,6 +63,7 @@ public abstract class AbstractEntity implements Entity {
             uri = HTTPHelper.addParameterToURI(uri, "token", User.getInstance().getToken());
         }
         fromJSON(HTTPHelper.getJSONObject(uri));
+        fixEncoding();
     }
 
     @Override
@@ -117,6 +120,24 @@ public abstract class AbstractEntity implements Entity {
             e.printStackTrace();
         }
     }
+
+    public void fixEncoding() {
+
+    }
+
+    @Override
+    public void fromJSON(JSONObject jsonObject) {
+        try {
+            convertFromJSON(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void convertFromJSON(JSONObject jsonObject) throws JSONException {
+        id = jsonObject.getInt("id");
+    }
+
 
     @Override
     public String toJSON() {
