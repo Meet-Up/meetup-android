@@ -52,6 +52,7 @@ public class Event extends AbstractEntity {
 
     @Override
     public void convertFromJSON(JSONObject jsonObject) throws JSONException {
+        super.convertFromJSON(jsonObject);
         name = jsonObject.getString("name");
         description = jsonObject.getString("description");
         if(jsonObject.has("creator")) {

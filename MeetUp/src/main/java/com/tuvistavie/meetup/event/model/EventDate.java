@@ -37,30 +37,17 @@ public class EventDate extends AbstractEntity implements Comparable<EventDate> {
     }
 
     @Override
-    public void fromJSON(JSONObject jsonObject) {
-        try {
-            startDateTime = new Date(jsonObject.getLong("start") * 1000);
-            endDateTime = new Date(jsonObject.getLong("end") * 1000);
-            if(jsonObject.has("id")) {
-                id = jsonObject.getInt("id");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void convertFromJSON(JSONObject jsonObject) throws JSONException {
+        super.convertFromJSON(jsonObject);
+        startDateTime = new Date(jsonObject.getLong("start") * 1000);
+        endDateTime = new Date(jsonObject.getLong("end") * 1000);
     }
 
     @Override
-    public JSONObject toJSONObject() {
-        JSONObject jsonDate = new JSONObject();
-        try {
-            jsonDate.put("start", (int)Math.ceil(startDateTime.getTime() / 1000.0));
-            jsonDate.put("end", (int)Math.ceil(endDateTime.getTime() / 1000.0));
-            if(id > 0) {
-                jsonDate.put("id", id);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public JSONObject convertToJSONObject() throws JSONException {
+        JSONObject jsonDate = super.convertToJSONObject();
+        jsonDate.put("start", (int)Math.ceil(startDateTime.getTime() / 1000.0));
+        jsonDate.put("end", (int)Math.ceil(endDateTime.getTime() / 1000.0));
         return jsonDate;
     }
 

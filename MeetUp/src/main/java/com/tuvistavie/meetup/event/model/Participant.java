@@ -16,12 +16,9 @@ public class Participant extends AbstractEntity {
     }
 
     @Override
-    public void fromJSON(JSONObject jsonObject) {
-        try {
-            username = jsonObject.getString("username");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void convertFromJSON(JSONObject jsonObject) throws JSONException {
+        super.convertFromJSON(jsonObject);
+        username = jsonObject.getString("username");
     }
 
     @Override

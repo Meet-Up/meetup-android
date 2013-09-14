@@ -135,7 +135,7 @@ public abstract class AbstractEntity implements Entity {
     }
 
     protected void convertFromJSON(JSONObject jsonObject) throws JSONException {
-        id = jsonObject.getInt("id");
+        id = jsonObject.optInt("id", -1);
     }
 
 

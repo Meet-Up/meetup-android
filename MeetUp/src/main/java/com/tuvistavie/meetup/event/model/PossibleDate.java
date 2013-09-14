@@ -22,18 +22,17 @@ public class PossibleDate extends AbstractEntity {
     }
 
     @Override
-    public void fromJSON(JSONObject jsonObject) {
+    public void convertFromJSON(JSONObject jsonObject) throws JSONException {
+        super.convertFromJSON(jsonObject);
         possibleTime = new boolean[48];
-        try {
-            String time = jsonObject.getString("possible_time");
+        String time = jsonObject.optString("possible_time");
+        if(time != null) {
             for(int i = 0; i < time.length(); i++) {
                 possibleTime[i] = time.charAt(i) == '1';
             }
-            eventDateId = jsonObject.getInt("event_date_id");
-            userId = jsonObject.getInt("user_id");
-        } catch (JSONException e) {
-
         }
+        eventDateId = jsonObject.optInt("event_date_id");
+        userId = jsonObject.optInt("user_id");
     }
 
     @Override

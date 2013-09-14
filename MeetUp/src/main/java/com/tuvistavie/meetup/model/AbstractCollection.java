@@ -7,6 +7,7 @@ import com.tuvistavie.meetup.model.listener.OnErrorListener;
 import com.tuvistavie.meetup.model.listener.OnFetchListener;
 import com.tuvistavie.meetup.model.listener.OnUpdateListener;
 import com.tuvistavie.meetup.util.HTTPHelper;
+import com.tuvistavie.meetup.util.JSONHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
